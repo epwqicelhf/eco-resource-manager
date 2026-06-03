@@ -1,0 +1,74 @@
+[
+  {
+    "timestamp": "2026-06-03T01:29:07.680Z",
+    "summary": {
+      "total": 57,
+      "passed": 57,
+      "failed": 0,
+      "skipped": 0,
+      "passRate": "100.00",
+      "totalDuration": 869
+    },
+    "runDir": "run-2026-06-03T01-29-07-681Z"
+  },
+  {
+    "timestamp": "2026-06-03T01:13:54.942Z",
+    "summary": {
+      "total": 57,
+      "passed": 57,
+      "failed": 0,
+      "skipped": 0,
+      "passRate": "100.00",
+      "totalDuration": 912
+    },
+    "runDir": "run-2026-06-03T01-13-54-943Z"
+  },
+  {
+    "timestamp": "2026-06-02T09:20:18.424Z",
+    "summary": {
+      "total": 57,
+      "passed": 57,
+      "failed": 0,
+      "skipped": 0,
+      "passRate": "100.00",
+      "totalDuration": 876
+    },
+    "runDir": "run-2026-06-02T09-20-18-424Z"
+  },
+  {
+    "timestamp": "2026-06-02T09:20:02.415Z",
+    "summary": {
+      "total": 57,
+      "passed": 57,
+      "failed": 0,
+      "skipped": 0,
+      "passRate": "100.00",
+      "totalDuration": 869
+    },
+    "runDir": "run-2026-06-02T09-20-02-416Z"
+  },
+  {
+    "timestamp": "2026-06-02T09:18:43.057Z",
+    "summary": {
+      "total": 57,
+      "passed": 57,
+      "failed": 0,
+      "skipped": 0,
+      "passRate": "100.00",
+      "totalDuration": 875
+    },
+    "runDir": "run-2026-06-02T09-18-43-058Z"
+  },
+  {
+    "timestamp": "2026-06-02T09:17:42.787Z",
+    "summary": {
+      "total": 57,
+      "passed": 57,
+      "failed": 0,
+      "skipped": 0,
+      "passRate": "100.00",
+      "totalDuration": 873
+    },
+    "runDir": "run-2026-06-02T09-17-42-788Z"
+  }
+]

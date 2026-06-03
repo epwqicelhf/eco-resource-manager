@@ -1,0 +1,3774 @@
+[
+  {
+    "testCaseId": "ORG-001",
+    "testCaseName": "创建一级组织",
+    "module": "组织管理",
+    "testType": "functional",
+    "priority": "high",
+    "strategy": "功能测试 - 验证功能按需求正确实现",
+    "status": "PASS",
+    "duration": 25,
+    "expected": {
+      "status": 200,
+      "body": {
+        "id": "positive_integer",
+        "name": "测试集团",
+        "level": 1,
+        "parent_id": null
+      }
+    },
+    "actual": {
+      "status": 200,
+      "body": {
+        "id": 1,
+        "parent_id": null,
+        "name": "测试集团",
+        "level": 1,
+        "sort_order": 0,
+        "created_at": "2026-06-02 09:18:42"
+      }
+    },
+    "error": null
+  },
+  {
+    "testCaseId": "ORG-002",
+    "testCaseName": "创建二级组织",
+    "module": "组织管理",
+    "testType": "functional",
+    "priority": "high",
+    "strategy": "功能测试 - 验证功能按需求正确实现",
+    "status": "PASS",
+    "duration": 7,
+    "expected": {
+      "status": 200,
+      "body": {
+        "id": "positive_integer",
+        "name": "技术部",
+        "level": 2,
+        "parent_id": 1
+      }
+    },
+    "actual": {
+      "status": 200,
+      "body": {
+        "id": 2,
+        "parent_id": 1,
+        "name": "技术部",
+        "level": 2,
+        "sort_order": 0,
+        "created_at": "2026-06-02 09:18:42"
+      }
+    },
+    "error": null
+  },
+  {
+    "testCaseId": "ORG-003",
+    "testCaseName": "创建三级组织",
+    "module": "组织管理",
+    "testType": "functional",
+    "priority": "medium",
+    "strategy": "功能测试 - 验证功能按需求正确实现",
+    "status": "PASS",
+    "duration": 5,
+    "expected": {
+      "status": 200,
+      "body": {
+        "level": 3,
+        "parent_id": 2
+      }
+    },
+    "actual": {
+      "status": 200,
+      "body": {
+        "id": 3,
+        "parent_id": 2,
+        "name": "研发组",
+        "level": 3,
+        "sort_order": 0,
+        "created_at": "2026-06-02 09:18:42"
+      }
+    },
+    "error": null
+  },
+  {
+    "testCaseId": "ORG-004",
+    "testCaseName": "组织名称为空",
+    "module": "组织管理",
+    "testType": "exception",
+    "priority": "high",
+    "strategy": "异常测试 - 验证异常输入处理",
+    "status": "PASS",
+    "duration": 2,
+    "expected": {
+      "status": 400,
+      "body": {
+        "error": "string_contains:名称"
+      }
+    },
+    "actual": {
+      "status": 400,
+      "body": {
+        "error": "组织名称不能为空"
+      }
+    },
+    "error": null
+  },
+  {
+    "testCaseId": "ORG-005",
+    "testCaseName": "父组织不存在",
+    "module": "组织管理",
+    "testType": "exception",
+    "priority": "high",
+    "strategy": "异常测试 - 验证异常输入处理",
+    "status": "PASS",
+    "duration": 3,
+    "expected": {
+      "status": 404,
+      "body": {
+        "error": "string_contains:不存在"
+      }
+    },
+    "actual": {
+      "status": 404,
+      "body": {
+        "error": "父组织不存在"
+      }
+    },
+    "error": null
+  },
+  {
+    "testCaseId": "ORG-006",
+    "testCaseName": "在有数据的组织下创建子组织",
+    "module": "组织管理",
+    "testType": "exception",
+    "priority": "high",
+    "strategy": "异常测试 - 验证异常输入处理",
+    "status": "PASS",
+    "duration": 30,
+    "expected": {
+      "status": 400,
+      "body": {
+        "error": "string_contains:数据"
+      }
+    },
+    "actual": {
+      "status": 400,
+      "body": {
+        "error": "该组织下已有数据，不能添加子组织"
+      }
+    },
+    "error": null
+  },
+  {
+    "testCaseId": "ORG-007",
+    "testCaseName": "查询组织树",
+    "module": "组织管理",
+    "testType": "functional",
+    "priority": "high",
+    "strategy": "功能测试 - 验证功能按需求正确实现",
+    "status": "PASS",
+    "duration": 5,
+    "expected": {
+      "status": 200,
+      "body": "array_with_children"
+    },
+    "actual": {
+      "status": 200,
+      "body": [
+        {
+          "id": 1,
+          "parent_id": null,
+          "name": "测试集团",
+          "level": 1,
+          "sort_order": 0,
+          "created_at": "2026-06-02 09:18:42",
+          "privacy_count": 0,
+          "pending_count": 0,
+          "has_data": false,
+          "is_leaf": false,
+          "child_count": 1,
+          "children": [
+            {
+              "id": 2,
+              "parent_id": 1,
+              "name": "技术部",
+              "level": 2,
+              "sort_order": 0,
+              "created_at": "2026-06-02 09:18:42",
+              "privacy_count": 0,
+              "pending_count": 0,
+              "has_data": false,
+              "is_leaf": false,
+              "child_count": 1,
+              "children": [
+                {
+                  "id": 3,
+                  "parent_id": 2,
+                  "name": "研发组",
+                  "level": 3,
+                  "sort_order": 0,
+                  "created_at": "2026-06-02 09:18:42",
+                  "privacy_count": 1,
+                  "pending_count": 0,
+                  "has_data": true,
+                  "is_leaf": true,
+                  "child_count": 0,
+                  "children": []
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    "error": null
+  },
+  {
+    "testCaseId": "ORG-008",
+    "testCaseName": "删除叶子组织",
+    "module": "组织管理",
+    "testType": "functional",
+    "priority": "high",
+    "strategy": "功能测试 - 验证功能按需求正确实现",
+    "status": "PASS",
+    "duration": 6,
+    "expected": {
+      "status": 200,
+      "body": {
+        "success": true
+      }
+    },
+    "actual": {
+      "status": 200,
+      "body": {
+        "success": true,
+        "deleted_data": 1,
+        "deleted_pending": 0
+      }
+    },
+    "error": null
+  },
+  {
+    "testCaseId": "ORG-009",
+    "testCaseName": "删除有子组织的组织",
+    "module": "组织管理",
+    "testType": "exception",
+    "priority": "high",
+    "strategy": "异常测试 - 验证异常输入处理",
+    "status": "PASS",
+    "duration": 3,
+    "expected": {
+      "status": 400,
+      "body": {
+        "error": "string_contains:子组织"
+      }
+    },
+    "actual": {
+      "status": 400,
+      "body": {
+        "error": "该组织下有子组织，请先删除子组织"
+      }
+    },
+    "error": null
+  },
+  {
+    "testCaseId": "GLB-001",
+    "testCaseName": "创建总表数据",
+    "module": "总表管理",
+    "testType": "functional",
+    "priority": "high",
+    "strategy": "功能测试 - 验证功能按需求正确实现",
+    "status": "PASS",
+    "duration": 7,
+    "expected": {
+      "status": 200,
+      "body": {
+        "id": "positive_integer",
+        "data_item": "用户姓名",
+        "grade": "3"
+      }
+    },
+    "actual": {
+      "status": 200,
+      "body": {
+        "id": 2,
+        "data_item": "用户姓名",
+        "grade": "3",
+        "confidentiality": "4",
+        "integrity": "3",
+        "availability": "3",
+        "compliance": "4",
+        "source": "manual",
+        "created_at": "2026-06-02 09:18:42",
+        "updated_at": "2026-06-02 09:18:42"
+      }
+    },
+    "error": null
+  },
+  {
+    "testCaseId": "GLB-002",
+    "testCaseName": "总表数据项名称为空",
+    "module": "总表管理",
+    "testType": "exception",
+    "priority": "high",
+    "strategy": "异常测试 - 验证异常输入处理",
+    "status": "PASS",
+    "duration": 2,
+    "expected": {
+      "status": 400,
+      "body": {
+        "error": "string_contains:数据项"
+      }
+    },
+    "actual": {
+      "status": 400,
+      "body": {
+        "error": "数据项不能为空"
+      }
+    },
+    "error": null
+  },
+  {
+    "testCaseId": "GLB-003",
+    "testCaseName": "等级字段为空",
+    "module": "总表管理",
+    "testType": "exception",
+    "priority": "high",
+    "strategy": "异常测试 - 验证异常输入处理",
+    "status": "PASS",
+    "duration": 2,
+    "expected": {
+      "status": 400,
+      "body": {
+        "error": "string_contains:等级"
+      }
+    },
+    "actual": {
+      "status": 400,
+      "body": {
+        "error": "综合等级不能为空"
+      }
+    },
+    "error": null
+  },
+  {
+    "testCaseId": "GLB-004",
+    "testCaseName": "等级字段边界值-最小值",
+    "module": "总表管理",
+    "testType": "boundary",
+    "priority": "high",
+    "strategy": "边界值测试 - 验证边界条件处理",
+    "status": "PASS",
+    "duration": 7,
+    "expected": {
+      "status": 200,
+      "body": {
+        "grade": "1"
+      }
+    },
+    "actual": {
+      "status": 200,
+      "body": {
+        "id": 3,
+        "data_item": "测试1",
+        "grade": "1",
+        "confidentiality": "1",
+        "integrity": "1",
+        "availability": "1",
+        "compliance": "1",
+        "source": "manual",
+        "created_at": "2026-06-02 09:18:42",
+        "updated_at": "2026-06-02 09:18:42"
+      }
+    },
+    "error": null
+  },
+  {
+    "testCaseId": "GLB-005",
+    "testCaseName": "等级字段边界值-最大值",
+    "module": "总表管理",
+    "testType": "boundary",
+    "priority": "high",
+    "strategy": "边界值测试 - 验证边界条件处理",
+    "status": "PASS",
+    "duration": 6,
+    "expected": {
+      "status": 200,
+      "body": {
+        "grade": "5"
+      }
+    },
+    "actual": {
+      "status": 200,
+      "body": {
+        "id": 4,
+        "data_item": "测试5",
+        "grade": "5",
+        "confidentiality": "5",
+        "integrity": "5",
+        "availability": "5",
+        "compliance": "5",
+        "source": "manual",
+        "created_at": "2026-06-02 09:18:42",
+        "updated_at": "2026-06-02 09:18:42"
+      }
+    },
+    "error": null
+  },
+  {
+    "testCaseId": "GLB-006",
+    "testCaseName": "等级字段边界值-超出最小值",
+    "module": "总表管理",
+    "testType": "boundary",
+    "priority": "high",
+    "strategy": "边界值测试 - 验证边界条件处理",
+    "status": "PASS",
+    "duration": 2,
+    "expected": {
+      "status": 400,
+      "body": {
+        "error": "string_contains:1-5"
+      }
+    },
+    "actual": {
+      "status": 400,
+      "body": {
+        "error": "综合等级必须为1-5的整数（当前值: 0）"
+      }
+    },
+    "error": null
+  },
+  {
+    "testCaseId": "GLB-007",
+    "testCaseName": "等级字段边界值-超出最大值",
+    "module": "总表管理",
+    "testType": "boundary",
+    "priority": "high",
+    "strategy": "边界值测试 - 验证边界条件处理",
+    "status": "PASS",
+    "duration": 2,
+    "expected": {
+      "status": 400,
+      "body": {
+        "error": "string_contains:1-5"
+      }
+    },
+    "actual": {
+      "status": 400,
+      "body": {
+        "error": "综合等级必须为1-5的整数（当前值: 6）"
+      }
+    },
+    "error": null
+  },
+  {
+    "testCaseId": "GLB-008",
+    "testCaseName": "等级字段非整数",
+    "module": "总表管理",
+    "testType": "boundary",
+    "priority": "medium",
+    "strategy": "边界值测试 - 验证边界条件处理",
+    "status": "PASS",
+    "duration": 2,
+    "expected": {
+      "status": 400,
+      "body": {
+        "error": "string_contains:整数"
+      }
+    },
+    "actual": {
+      "status": 400,
+      "body": {
+        "error": "综合等级必须为1-5的整数（当前值: 3.5）"
+      }
+    },
+    "error": null
+  },
+  {
+    "testCaseId": "GLB-009",
+    "testCaseName": "重复数据项名称",
+    "module": "总表管理",
+    "testType": "exception",
+    "priority": "high",
+    "strategy": "异常测试 - 验证异常输入处理",
+    "status": "PASS",
+    "duration": 2,
+    "expected": {
+      "status": 400,
+      "body": {
+        "error": "string_contains:已存在"
+      }
+    },
+    "actual": {
+      "status": 400,
+      "body": {
+        "error": "该数据项已存在于总表中"
+      }
+    },
+    "error": null
+  },
+  {
+    "testCaseId": "GLB-010",
+    "testCaseName": "更新总表数据",
+    "module": "总表管理",
+    "testType": "functional",
+    "priority": "high",
+    "strategy": "功能测试 - 验证功能按需求正确实现",
+    "status": "PASS",
+    "duration": 8,
+    "expected": {
+      "status": 200,
+      "body": {
+        "grade": "4"
+      }
+    },
+    "actual": {
+      "status": 200,
+      "body": {
+        "id": 1,
+        "data_item": "测试数据",
+        "grade": "4",
+        "confidentiality": "4",
+        "integrity": "3",
+        "availability": "3",
+        "compliance": "4",
+        "source": "gui",
+        "created_at": "2026-06-02 09:18:42",
+        "updated_at": "2026-06-02 09:18:42",
+        "rectification_tasks_created": 0
+      }
+    },
+    "error": null
+  },
+  {
+    "testCaseId": "GLB-011",
+    "testCaseName": "删除总表数据",
+    "module": "总表管理",
+    "testType": "functional",
+    "priority": "medium",
+    "strategy": "功能测试 - 验证功能按需求正确实现",
+    "status": "PASS",
+    "duration": 10,
+    "expected": {
+      "status": 200,
+      "body": {
+        "success": true
+      }
+    },
+    "actual": {
+      "status": 200,
+      "body": {
+        "success": true
+      }
+    },
+    "error": null
+  },
+  {
+    "testCaseId": "GLB-012",
+    "testCaseName": "查询总表数据",
+    "module": "总表管理",
+    "testType": "functional",
+    "priority": "high",
+    "strategy": "功能测试 - 验证功能按需求正确实现",
+    "status": "PASS",
+    "duration": 3,
+    "expected": {
+      "status": 200,
+      "body": "array"
+    },
+    "actual": {
+      "status": 200,
+      "body": [
+        {
+          "id": 4,
+          "data_item": "测试5",
+          "grade": "5",
+          "confidentiality": "5",
+          "integrity": "5",
+          "availability": "5",
+          "compliance": "5",
+          "source": "manual",
+          "created_at": "2026-06-02 09:18:42",
+          "updated_at": "2026-06-02 09:18:42"
+        },
+        {
+          "id": 3,
+          "data_item": "测试1",
+          "grade": "1",
+          "confidentiality": "1",
+          "integrity": "1",
+          "availability": "1",
+          "compliance": "1",
+          "source": "manual",
+          "created_at": "2026-06-02 09:18:42",
+          "updated_at": "2026-06-02 09:18:42"
+        },
+        {
+          "id": 2,
+          "data_item": "用户姓名",
+          "grade": "3",
+          "confidentiality": "4",
+          "integrity": "3",
+          "availability": "3",
+          "compliance": "4",
+          "source": "manual",
+          "created_at": "2026-06-02 09:18:42",
+          "updated_at": "2026-06-02 09:18:42"
+        },
+        {
+          "id": 1,
+          "data_item": "测试数据",
+          "grade": "4",
+          "confidentiality": "4",
+          "integrity": "3",
+          "availability": "3",
+          "compliance": "4",
+          "source": "gui",
+          "created_at": "2026-06-02 09:18:42",
+          "updated_at": "2026-06-02 09:18:42"
+        }
+      ]
+    },
+    "error": null
+  },
+  {
+    "testCaseId": "PRIV-001",
+    "testCaseName": "GUI新增隐私数据",
+    "module": "组织级隐私数据",
+    "testType": "functional",
+    "priority": "high",
+    "strategy": "功能测试 - 验证功能按需求正确实现",
+    "status": "PASS",
+    "duration": 7,
+    "expected": {
+      "status": 200,
+      "body": {
+        "pending": true,
+        "pending_id": "positive_integer"
+      }
+    },
+    "actual": {
+      "status": 200,
+      "body": {
+        "pending": true,
+        "pending_id": 2,
+        "accepted_global": false,
+        "id": 2,
+        "batch_id": "ca4a6815-9c86-49ff-8c2b-78468059fb4a",
+        "org_id": 2,
+        "data_item": "员工工号",
+        "grade": "2",
+        "confidentiality": "3",
+        "integrity": "4",
+        "availability": "5",
+        "compliance": "3",
+        "source_sheet": "",
+        "type": "new",
+        "status": "pending",
+        "existing_grade": "",
+        "existing_confidentiality": "",
+        "existing_integrity": "",
+        "existing_availability": "",
+        "existing_compliance": "",
+        "created_at": "2026-06-02 09:18:42",
+        "source": "gui",
+        "privacy_id": null
+      }
+    },
+    "error": null
+  },
+  {
+    "testCaseId": "PRIV-002",
+    "testCaseName": "非叶子组织不能添加数据",
+    "module": "组织级隐私数据",
+    "testType": "exception",
+    "priority": "high",
+    "strategy": "异常测试 - 验证异常输入处理",
+    "status": "PASS",
+    "duration": 2,
+    "expected": {
+      "status": 400,
+      "body": {
+        "error": "string_contains:叶子"
+      }
+    },
+    "actual": {
+      "status": 400,
+      "body": {
+        "error": "非叶子节点组织不能添加数据"
+      }
+    },
+    "error": null
+  },
+  {
+    "testCaseId": "PRIV-003",
+    "testCaseName": "组织不存在",
+    "module": "组织级隐私数据",
+    "testType": "exception",
+    "priority": "high",
+    "strategy": "异常测试 - 验证异常输入处理",
+    "status": "PASS",
+    "duration": 2,
+    "expected": {
+      "status": 404,
+      "body": {
+        "error": "string_contains:不存在"
+      }
+    },
+    "actual": {
+      "status": 404,
+      "body": {
+        "error": "组织不存在"
+      }
+    },
+    "error": null
+  },
+  {
+    "testCaseId": "PRIV-004",
+    "testCaseName": "同一组织重复数据项",
+    "module": "组织级隐私数据",
+    "testType": "exception",
+    "priority": "high",
+    "strategy": "异常测试 - 验证异常输入处理",
+    "status": "PASS",
+    "duration": 2,
+    "expected": {
+      "status": 400,
+      "body": {
+        "error": "string_contains:待审核"
+      }
+    },
+    "actual": {
+      "status": 400,
+      "body": {
+        "error": "该数据项已有待审核的新增记录"
+      }
+    },
+    "error": null
+  },
+  {
+    "testCaseId": "PRIV-005",
+    "testCaseName": "查询组织隐私数据",
+    "module": "组织级隐私数据",
+    "testType": "functional",
+    "priority": "high",
+    "strategy": "功能测试 - 验证功能按需求正确实现",
+    "status": "PASS",
+    "duration": 12,
+    "expected": {
+      "status": 200,
+      "body": "array"
+    },
+    "actual": {
+      "status": 200,
+      "body": [
+        {
+          "id": 2,
+          "org_id": 2,
+          "data_item": "员工工号",
+          "grade": "2",
+          "confidentiality": "3",
+          "integrity": "4",
+          "availability": "5",
+          "compliance": "3",
+          "source_sheet": "",
+          "created_at": "2026-06-02 09:18:42",
+          "updated_at": "2026-06-02 09:18:42"
+        }
+      ]
+    },
+    "error": null
+  },
+  {
+    "testCaseId": "PRIV-006",
+    "testCaseName": "更新隐私数据",
+    "module": "组织级隐私数据",
+    "testType": "functional",
+    "priority": "high",
+    "strategy": "功能测试 - 验证功能按需求正确实现",
+    "status": "PASS",
+    "duration": 27,
+    "expected": {
+      "status": 200,
+      "body": {
+        "pending": true
+      }
+    },
+    "actual": {
+      "status": 200,
+      "body": {
+        "pending": true,
+        "pending_id": 4,
+        "id": 4,
+        "batch_id": "6f6ea2a7-1545-4eb8-8763-4a8fc9514cc0",
+        "org_id": 2,
+        "data_item": "更新测试数据",
+        "grade": "3",
+        "confidentiality": "3",
+        "integrity": "3",
+        "availability": "3",
+        "compliance": "3",
+        "source_sheet": "",
+        "type": "update",
+        "status": "pending",
+        "existing_grade": "2",
+        "existing_confidentiality": "3",
+        "existing_integrity": "4",
+        "existing_availability": "5",
+        "existing_compliance": "3",
+        "created_at": "2026-06-02 09:18:42",
+        "source": "gui",
+        "privacy_id": 3
+      }
+    },
+    "error": null
+  },
+  {
+    "testCaseId": "PRIV-007",
+    "testCaseName": "删除隐私数据",
+    "module": "组织级隐私数据",
+    "testType": "functional",
+    "priority": "medium",
+    "strategy": "功能测试 - 验证功能按需求正确实现",
+    "status": "PASS",
+    "duration": 41,
+    "expected": {
+      "status": 200,
+      "body": {
+        "pending": true
+      }
+    },
+    "actual": {
+      "status": 200,
+      "body": {
+        "pending": true,
+        "pending_id": 7,
+        "id": 7,
+        "batch_id": "00146bda-8b0f-4a7a-8fa4-e51c7ff0015d",
+        "org_id": 2,
+        "data_item": "删除测试数据2",
+        "grade": "3",
+        "confidentiality": "3",
+        "integrity": "3",
+        "availability": "3",
+        "compliance": "3",
+        "source_sheet": "",
+        "type": "delete",
+        "status": "pending",
+        "existing_grade": "",
+        "existing_confidentiality": "",
+        "existing_integrity": "",
+        "existing_availability": "",
+        "existing_compliance": "",
+        "created_at": "2026-06-02 09:18:42",
+        "source": "gui",
+        "privacy_id": 4
+      }
+    },
+    "error": null
+  },
+  {
+    "testCaseId": "IMP-001",
+    "testCaseName": "正常导入Excel",
+    "module": "数据导入",
+    "testType": "functional",
+    "priority": "high",
+    "strategy": "功能测试 - 验证功能按需求正确实现",
+    "status": "PASS",
+    "duration": 274,
+    "expected": {
+      "status": 200,
+      "body": {
+        "new": "positive_integer"
+      }
+    },
+    "actual": {
+      "status": 200,
+      "body": {
+        "batch_id": "33a6a2ca-62ed-4302-94dd-b7648ae978eb",
+        "new": 3,
+        "conflict": 0,
+        "global_conflict": 0,
+        "global_conflicts": [],
+        "skipped": 0,
+        "skipped_items": [],
+        "duplicate": 0,
+        "duplicate_items": [],
+        "orgs_created": [],
+        "total": 3
+      }
+    },
+    "error": null
+  },
+  {
+    "testCaseId": "IMP-002",
+    "testCaseName": "导入空文件",
+    "module": "数据导入",
+    "testType": "exception",
+    "priority": "high",
+    "strategy": "异常测试 - 验证异常输入处理",
+    "status": "PASS",
+    "duration": 23,
+    "expected": {
+      "status": 400,
+      "body": {
+        "error": "string_contains:未找到"
+      }
+    },
+    "actual": {
+      "status": 400,
+      "body": {
+        "error": "文件中未找到有效数据行"
+      }
+    },
+    "error": null
+  },
+  {
+    "testCaseId": "IMP-003",
+    "testCaseName": "导入缺少必填字段",
+    "module": "数据导入",
+    "testType": "exception",
+    "priority": "high",
+    "strategy": "异常测试 - 验证异常输入处理",
+    "status": "PASS",
+    "duration": 26,
+    "expected": {
+      "status": 200,
+      "body": {
+        "skipped": "positive_integer"
+      }
+    },
+    "actual": {
+      "status": 200,
+      "body": {
+        "batch_id": "54fa3963-9e7c-4b83-9b63-00c8c9c434c8",
+        "new": 0,
+        "conflict": 0,
+        "global_conflict": 0,
+        "global_conflicts": [],
+        "skipped": 3,
+        "skipped_items": [
+          {
+            "data_item": "测试数据1",
+            "errors": [
+              "综合等级不能为空"
+            ],
+            "source_sheet": "Sheet1"
+          },
+          {
+            "data_item": "测试数据2",
+            "errors": [
+              "机密性不能为空"
+            ],
+            "source_sheet": "Sheet1"
+          },
+          {
+            "data_item": "测试数据3",
+            "errors": [
+              "完整性不能为空"
+            ],
+            "source_sheet": "Sheet1"
+          }
+        ],
+        "duplicate": 0,
+        "duplicate_items": [],
+        "orgs_created": [],
+        "total": 3
+      }
+    },
+    "error": null
+  },
+  {
+    "testCaseId": "IMP-004",
+    "testCaseName": "导入重复数据项",
+    "module": "数据导入",
+    "testType": "exception",
+    "priority": "high",
+    "strategy": "异常测试 - 验证异常输入处理",
+    "status": "PASS",
+    "duration": 25,
+    "expected": {
+      "status": 200,
+      "body": {
+        "duplicate": "positive_integer"
+      }
+    },
+    "actual": {
+      "status": 200,
+      "body": {
+        "batch_id": "3cca7da8-3be1-488e-8d56-71edae0f7203",
+        "new": 2,
+        "conflict": 0,
+        "global_conflict": 0,
+        "global_conflicts": [],
+        "skipped": 0,
+        "skipped_items": [],
+        "duplicate": 1,
+        "duplicate_items": [
+          {
+            "data_item": "重复数据",
+            "source_sheet": "Sheet1"
+          }
+        ],
+        "orgs_created": [],
+        "total": 3
+      }
+    },
+    "error": null
+  },
+  {
+    "testCaseId": "IMP-005",
+    "testCaseName": "导入包含组织分类列",
+    "module": "数据导入",
+    "testType": "functional",
+    "priority": "high",
+    "strategy": "功能测试 - 验证功能按需求正确实现",
+    "status": "PASS",
+    "duration": 26,
+    "expected": {
+      "status": 200,
+      "body": {
+        "orgs_created": "array"
+      }
+    },
+    "actual": {
+      "status": 200,
+      "body": {
+        "batch_id": "121fe636-dfe2-44ef-a092-4e02b2572646",
+        "new": 3,
+        "conflict": 0,
+        "global_conflict": 0,
+        "global_conflicts": [],
+        "skipped": 0,
+        "skipped_items": [],
+        "duplicate": 0,
+        "duplicate_items": [],
+        "orgs_created": [
+          {
+            "id": 4,
+            "name": "集团",
+            "level": 1
+          },
+          {
+            "id": 5,
+            "name": "技术部",
+            "level": 2
+          },
+          {
+            "id": 6,
+            "name": "财务部",
+            "level": 2
+          },
+          {
+            "id": 7,
+            "name": "子公司",
+            "level": 1
+          },
+          {
+            "id": 8,
+            "name": "研发部",
+            "level": 2
+          }
+        ],
+        "total": 3
+      }
+    },
+    "error": null
+  },
+  {
+    "testCaseId": "IMP-006",
+    "testCaseName": "下载导入模板",
+    "module": "数据导入",
+    "testType": "functional",
+    "priority": "medium",
+    "strategy": "功能测试 - 验证功能按需求正确实现",
+    "status": "PASS",
+    "duration": 15,
+    "expected": {
+      "status": 200,
+      "contentType": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+    },
+    "actual": {
+      "status": 200,
+      "body": "PK\u0003\u0004\u0014\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000�a<'B\u0003\u0000\u0000B\u0003\u0000\u0000\u001a\u0000\u0000\u0000xl/_rels/workbook.xml.rels<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>\r\n<Relationships xmlns=\"http://schemas.openxmlformats.org/package/2006/relationships\"><Relationship Id=\"rId1\" Type=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships/worksheet\" Target=\"worksheets/sheet1.xml\"/><Relationship Id=\"rId2\" Type=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships/worksheet\" Target=\"worksheets/sheet2.xml\"/><Relationship Id=\"rId3\" Type=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships/theme\" Target=\"theme/theme1.xml\"/><Relationship Id=\"rId4\" Type=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships/styles\" Target=\"styles.xml\"/><Relationship Id=\"rId5\" Type=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships/sheetMetadata\" Target=\"metadata.xml\"/></Relationships>PK\u0003\u0004\u0014\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u00000\u000f�k�\u001d\u0000\u0000�\u001d\u0000\u0000\u0013\u0000\u0000\u0000xl/theme/theme1.xml<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>\r\n<a:theme xmlns:a=\"http://schemas.openxmlformats.org/drawingml/2006/main\" name=\"Office Theme\"><a:themeElements><a:clrScheme name=\"Office\"><a:dk1><a:sysClr val=\"windowText\" lastClr=\"000000\"/></a:dk1><a:lt1><a:sysClr val=\"window\" lastClr=\"FFFFFF\"/></a:lt1><a:dk2><a:srgbClr val=\"1F497D\"/></a:dk2><a:lt2><a:srgbClr val=\"EEECE1\"/></a:lt2><a:accent1><a:srgbClr val=\"4F81BD\"/></a:accent1><a:accent2><a:srgbClr val=\"C0504D\"/></a:accent2><a:accent3><a:srgbClr val=\"9BBB59\"/></a:accent3><a:accent4><a:srgbClr val=\"8064A2\"/></a:accent4><a:accent5><a:srgbClr val=\"4BACC6\"/></a:accent5><a:accent6><a:srgbClr val=\"F79646\"/></a:accent6><a:hlink><a:srgbClr val=\"0000FF\"/></a:hlink><a:folHlink><a:srgbClr val=\"800080\"/></a:folHlink></a:clrScheme><a:fontScheme name=\"Office\"><a:majorFont><a:latin typeface=\"Cambria\"/><a:ea typeface=\"\"/><a:cs typeface=\"\"/><a:font script=\"Jpan\" typeface=\"ＭＳ Ｐゴシック\"/><a:font script=\"Hang\" typeface=\"맑은 고딕\"/><a:font script=\"Hans\" typeface=\"宋体\"/><a:font script=\"Hant\" typeface=\"新細明體\"/><a:font script=\"Arab\" typeface=\"Times New Roman\"/><a:font script=\"Hebr\" typeface=\"Times New Roman\"/><a:font script=\"Thai\" typeface=\"Tahoma\"/><a:font script=\"Ethi\" typeface=\"Nyala\"/><a:font script=\"Beng\" typeface=\"Vrinda\"/><a:font script=\"Gujr\" typeface=\"Shruti\"/><a:font script=\"Khmr\" typeface=\"MoolBoran\"/><a:font script=\"Knda\" typeface=\"Tunga\"/><a:font script=\"Guru\" typeface=\"Raavi\"/><a:font script=\"Cans\" typeface=\"Euphemia\"/><a:font script=\"Cher\" typeface=\"Plantagenet Cherokee\"/><a:font script=\"Yiii\" typeface=\"Microsoft Yi Baiti\"/><a:font script=\"Tibt\" typeface=\"Microsoft Himalaya\"/><a:font script=\"Thaa\" typeface=\"MV Boli\"/><a:font script=\"Deva\" typeface=\"Mangal\"/><a:font script=\"Telu\" typeface=\"Gautami\"/><a:font script=\"Taml\" typeface=\"Latha\"/><a:font script=\"Syrc\" typeface=\"Estrangelo Edessa\"/><a:font script=\"Orya\" typeface=\"Kalinga\"/><a:font script=\"Mlym\" typeface=\"Kartika\"/><a:font script=\"Laoo\" typeface=\"DokChampa\"/><a:font script=\"Sinh\" typeface=\"Iskoola Pota\"/><a:font script=\"Mong\" typeface=\"Mongolian Baiti\"/><a:font script=\"Viet\" typeface=\"Times New Roman\"/><a:font script=\"Uigh\" typeface=\"Microsoft Uighur\"/><a:font script=\"Geor\" typeface=\"Sylfaen\"/></a:majorFont><a:minorFont><a:latin typeface=\"Calibri\"/><a:ea typeface=\"\"/><a:cs typeface=\"\"/><a:font script=\"Jpan\" typeface=\"ＭＳ Ｐゴシック\"/><a:font script=\"Hang\" typeface=\"맑은 고딕\"/><a:font script=\"Hans\" typeface=\"宋体\"/><a:font script=\"Hant\" typeface=\"新細明體\"/><a:font script=\"Arab\" typeface=\"Arial\"/><a:font script=\"Hebr\" typeface=\"Arial\"/><a:font script=\"Thai\" typeface=\"Tahoma\"/><a:font script=\"Ethi\" typeface=\"Nyala\"/><a:font script=\"Beng\" typeface=\"Vrinda\"/><a:font script=\"Gujr\" typeface=\"Shruti\"/><a:font script=\"Khmr\" typeface=\"DaunPenh\"/><a:font script=\"Knda\" typeface=\"Tunga\"/><a:font script=\"Guru\" typeface=\"Raavi\"/><a:font script=\"Cans\" typeface=\"Euphemia\"/><a:font script=\"Cher\" typeface=\"Plantagenet Cherokee\"/><a:font script=\"Yiii\" typeface=\"Microsoft Yi Baiti\"/><a:font script=\"Tibt\" typeface=\"Microsoft Himalaya\"/><a:font script=\"Thaa\" typeface=\"MV Boli\"/><a:font script=\"Deva\" typeface=\"Mangal\"/><a:font script=\"Telu\" typeface=\"Gautami\"/><a:font script=\"Taml\" typeface=\"Latha\"/><a:font script=\"Syrc\" typeface=\"Estrangelo Edessa\"/><a:font script=\"Orya\" typeface=\"Kalinga\"/><a:font script=\"Mlym\" typeface=\"Kartika\"/><a:font script=\"Laoo\" typeface=\"DokChampa\"/><a:font script=\"Sinh\" typeface=\"Iskoola Pota\"/><a:font script=\"Mong\" typeface=\"Mongolian Baiti\"/><a:font script=\"Viet\" typeface=\"Arial\"/><a:font script=\"Uigh\" typeface=\"Microsoft Uighur\"/><a:font script=\"Geor\" typeface=\"Sylfaen\"/></a:minorFont></a:fontScheme><a:fmtScheme name=\"Office\"><a:fillStyleLst><a:solidFill><a:schemeClr val=\"phClr\"/></a:solidFill><a:gradFill rotWithShape=\"1\"><a:gsLst><a:gs pos=\"0\"><a:schemeClr val=\"phClr\"><a:tint val=\"50000\"/><a:satMod val=\"300000\"/></a:schemeClr></a:gs><a:gs pos=\"35000\"><a:schemeClr val=\"phClr\"><a:tint val=\"37000\"/><a:satMod val=\"300000\"/></a:schemeClr></a:gs><a:gs pos=\"100000\"><a:schemeClr val=\"phClr\"><a:tint val=\"15000\"/><a:satMod val=\"350000\"/></a:schemeClr></a:gs></a:gsLst><a:lin ang=\"16200000\" scaled=\"1\"/></a:gradFill><a:gradFill rotWithShape=\"1\"><a:gsLst><a:gs pos=\"0\"><a:schemeClr val=\"phClr\"><a:tint val=\"100000\"/><a:shade val=\"100000\"/><a:satMod val=\"130000\"/></a:schemeClr></a:gs><a:gs pos=\"100000\"><a:schemeClr val=\"phClr\"><a:tint val=\"50000\"/><a:shade val=\"100000\"/><a:satMod val=\"350000\"/></a:schemeClr></a:gs></a:gsLst><a:lin ang=\"16200000\" scaled=\"0\"/></a:gradFill></a:fillStyleLst><a:lnStyleLst><a:ln w=\"9525\" cap=\"flat\" cmpd=\"sng\" algn=\"ctr\"><a:solidFill><a:schemeClr val=\"phClr\"><a:shade val=\"95000\"/><a:satMod val=\"105000\"/></a:schemeClr></a:solidFill><a:prstDash val=\"solid\"/></a:ln><a:ln w=\"25400\" cap=\"flat\" cmpd=\"sng\" algn=\"ctr\"><a:solidFill><a:schemeClr val=\"phClr\"/></a:solidFill><a:prstDash val=\"solid\"/></a:ln><a:ln w=\"38100\" cap=\"flat\" cmpd=\"sng\" algn=\"ctr\"><a:solidFill><a:schemeClr val=\"phClr\"/></a:solidFill><a:prstDash val=\"solid\"/></a:ln></a:lnStyleLst><a:effectStyleLst><a:effectStyle><a:effectLst><a:outerShdw blurRad=\"40000\" dist=\"20000\" dir=\"5400000\" rotWithShape=\"0\"><a:srgbClr val=\"000000\"><a:alpha val=\"38000\"/></a:srgbClr></a:outerShdw></a:effectLst></a:effectStyle><a:effectStyle><a:effectLst><a:outerShdw blurRad=\"40000\" dist=\"23000\" dir=\"5400000\" rotWithShape=\"0\"><a:srgbClr val=\"000000\"><a:alpha val=\"35000\"/></a:srgbClr></a:outerShdw></a:effectLst></a:effectStyle><a:effectStyle><a:effectLst><a:outerShdw blurRad=\"40000\" dist=\"23000\" dir=\"5400000\" rotWithShape=\"0\"><a:srgbClr val=\"000000\"><a:alpha val=\"35000\"/></a:srgbClr></a:outerShdw></a:effectLst><a:scene3d><a:camera prst=\"orthographicFront\"><a:rot lat=\"0\" lon=\"0\" rev=\"0\"/></a:camera><a:lightRig rig=\"threePt\" dir=\"t\"><a:rot lat=\"0\" lon=\"0\" rev=\"1200000\"/></a:lightRig></a:scene3d><a:sp3d><a:bevelT w=\"63500\" h=\"25400\"/></a:sp3d></a:effectStyle></a:effectStyleLst><a:bgFillStyleLst><a:solidFill><a:schemeClr val=\"phClr\"/></a:solidFill><a:gradFill rotWithShape=\"1\"><a:gsLst><a:gs pos=\"0\"><a:schemeClr val=\"phClr\"><a:tint val=\"40000\"/><a:satMod val=\"350000\"/></a:schemeClr></a:gs><a:gs pos=\"40000\"><a:schemeClr val=\"phClr\"><a:tint val=\"45000\"/><a:shade val=\"99000\"/><a:satMod val=\"350000\"/></a:schemeClr></a:gs><a:gs pos=\"100000\"><a:schemeClr val=\"phClr\"><a:shade val=\"20000\"/><a:satMod val=\"255000\"/></a:schemeClr></a:gs></a:gsLst><a:path path=\"circle\"><a:fillToRect l=\"50000\" t=\"-80000\" r=\"50000\" b=\"180000\"/></a:path></a:gradFill><a:gradFill rotWithShape=\"1\"><a:gsLst><a:gs pos=\"0\"><a:schemeClr val=\"phClr\"><a:tint val=\"80000\"/><a:satMod val=\"300000\"/></a:schemeClr></a:gs><a:gs pos=\"100000\"><a:schemeClr val=\"phClr\"><a:shade val=\"30000\"/><a:satMod val=\"200000\"/></a:schemeClr></a:gs></a:gsLst><a:path path=\"circle\"><a:fillToRect l=\"50000\" t=\"50000\" r=\"50000\" b=\"50000\"/></a:path></a:gradFill></a:bgFillStyleLst></a:fmtScheme></a:themeElements><a:objectDefaults><a:spDef><a:spPr/><a:bodyPr/><a:lstStyle/><a:style><a:lnRef idx=\"1\"><a:schemeClr val=\"accent1\"/></a:lnRef><a:fillRef idx=\"3\"><a:schemeClr val=\"accent1\"/></a:fillRef><a:effectRef idx=\"2\"><a:schemeClr val=\"accent1\"/></a:effectRef><a:fontRef idx=\"minor\"><a:schemeClr val=\"lt1\"/></a:fontRef></a:style></a:spDef><a:lnDef><a:spPr/><a:bodyPr/><a:lstStyle/><a:style><a:lnRef idx=\"2\"><a:schemeClr val=\"accent1\"/></a:lnRef><a:fillRef idx=\"0\"><a:schemeClr val=\"accent1\"/></a:fillRef><a:effectRef idx=\"1\"><a:schemeClr val=\"accent1\"/></a:effectRef><a:fontRef idx=\"minor\"><a:schemeClr val=\"tx1\"/></a:fontRef></a:style></a:lnDef></a:objectDefaults><a:extraClrSchemeLst/></a:theme>PK\u0003\u0004\u0014\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000U�\u0004�Z\u0004\u0000\u0000Z\u0004\u0000\u0000\r\u0000\u0000\u0000xl/styles.xml<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>\r\n<styleSheet xmlns=\"http://schemas.openxmlformats.org/spreadsheetml/2006/main\" xmlns:vt=\"http://schemas.openxmlformats.org/officeDocument/2006/docPropsVTypes\"><numFmts count=\"1\"><numFmt numFmtId=\"56\" formatCode=\"&quot;上午/下午 &quot;hh&quot;時&quot;mm&quot;分&quot;ss&quot;秒 &quot;\"/></numFmts><fonts count=\"1\"><font><sz val=\"12\"/><color theme=\"1\"/><name val=\"Calibri\"/><family val=\"2\"/><scheme val=\"minor\"/></font></fonts><fills count=\"2\"><fill><patternFill patternType=\"none\"/></fill><fill><patternFill patternType=\"gray125\"/></fill></fills><borders count=\"1\"><border><left/><right/><top/><bottom/><diagonal/></border></borders><cellStyleXfs count=\"1\"><xf numFmtId=\"0\" fontId=\"0\" fillId=\"0\" borderId=\"0\"/></cellStyleXfs><cellXfs count=\"1\"><xf numFmtId=\"0\" fontId=\"0\" fillId=\"0\" borderId=\"0\" xfId=\"0\" applyNumberFormat=\"1\"/></cellXfs><cellStyles count=\"1\"><cellStyle name=\"Normal\" xfId=\"0\" builtinId=\"0\"/></cellStyles><dxfs count=\"0\"/><tableStyles count=\"0\" defaultTableStyle=\"TableStyleMedium9\" defaultPivotStyle=\"PivotStyleMedium4\"/></styleSheet>PK\u0003\u0004\u0014\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000!r\u000b�O\n\u0000\u0000O\n\u0000\u0000\u0018\u0000\u0000\u0000xl/worksheets/sheet1.xml<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>\r\n<worksheet xmlns=\"http://schemas.openxmlformats.org/spreadsheetml/2006/main\" xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\"><dimension ref=\"A1:K4\"/><sheetViews><sheetView workbookViewId=\"0\"/></sheetViews><cols><col min=\"1\" max=\"1\" width=\"16.83203125\" customWidth=\"1\"/><col min=\"2\" max=\"2\" width=\"16.83203125\" customWidth=\"1\"/><col min=\"3\" max=\"3\" width=\"16.83203125\" customWidth=\"1\"/><col min=\"4\" max=\"4\" width=\"16.83203125\" customWidth=\"1\"/><col min=\"5\" max=\"5\" width=\"16.83203125\" customWidth=\"1\"/><col min=\"6\" max=\"6\" width=\"24.83203125\" customWidth=\"1\"/><col min=\"7\" max=\"7\" width=\"12.83203125\" customWidth=\"1\"/><col min=\"8\" max=\"8\" width=\"12.83203125\" customWidth=\"1\"/><col min=\"9\" max=\"9\" width=\"12.83203125\" customWidth=\"1\"/><col min=\"10\" max=\"10\" width=\"12.83203125\" customWidth=\"1\"/><col min=\"11\" max=\"11\" width=\"12.83203125\" customWidth=\"1\"/></cols><sheetData><row r=\"1\"><c r=\"A1\" t=\"str\"><v>一级分类</v></c><c r=\"B1\" t=\"str\"><v>二级分类</v></c><c r=\"C1\" t=\"str\"><v>三级分类</v></c><c r=\"D1\" t=\"str\"><v>四级分类</v></c><c r=\"E1\" t=\"str\"><v>五级分类</v></c><c r=\"F1\" t=\"str\"><v>数据项</v></c><c r=\"G1\" t=\"str\"><v>综合等级</v></c><c r=\"H1\" t=\"str\"><v>机密性</v></c><c r=\"I1\" t=\"str\"><v>完整性</v></c><c r=\"J1\" t=\"str\"><v>可用性</v></c><c r=\"K1\" t=\"str\"><v>合规性</v></c></row><row r=\"2\"><c r=\"A2\" t=\"str\"><v>集团</v></c><c r=\"B2\" t=\"str\"><v>技术部</v></c><c r=\"C2\" t=\"str\"><v>研发组</v></c><c r=\"D2\" t=\"str\"><v></v></c><c r=\"E2\" t=\"str\"><v></v></c><c r=\"F2\" t=\"str\"><v>用户姓名</v></c><c r=\"G2\" t=\"str\"><v>3</v></c><c r=\"H2\" t=\"str\"><v>4</v></c><c r=\"I2\" t=\"str\"><v>3</v></c><c r=\"J2\" t=\"str\"><v>3</v></c><c r=\"K2\" t=\"str\"><v>4</v></c></row><row r=\"3\"><c r=\"A3\" t=\"str\"><v>集团</v></c><c r=\"B3\" t=\"str\"><v>技术部</v></c><c r=\"C3\" t=\"str\"><v>运维组</v></c><c r=\"D3\" t=\"str\"><v></v></c><c r=\"E3\" t=\"str\"><v></v></c><c r=\"F3\" t=\"str\"><v>服务器IP</v></c><c r=\"G3\" t=\"str\"><v>4</v></c><c r=\"H3\" t=\"str\"><v>5</v></c><c r=\"I3\" t=\"str\"><v>4</v></c><c r=\"J3\" t=\"str\"><v>5</v></c><c r=\"K3\" t=\"str\"><v>3</v></c></row><row r=\"4\"><c r=\"A4\" t=\"str\"><v>集团</v></c><c r=\"B4\" t=\"str\"><v>财务部</v></c><c r=\"C4\" t=\"str\"><v></v></c><c r=\"D4\" t=\"str\"><v></v></c><c r=\"E4\" t=\"str\"><v></v></c><c r=\"F4\" t=\"str\"><v>员工工资</v></c><c r=\"G4\" t=\"str\"><v>5</v></c><c r=\"H4\" t=\"str\"><v>5</v></c><c r=\"I4\" t=\"str\"><v>5</v></c><c r=\"J4\" t=\"str\"><v>4</v></c><c r=\"K4\" t=\"str\"><v>5</v></c></row></sheetData><ignoredErrors><ignoredError numberStoredAsText=\"1\" sqref=\"A1:K4\"/></ignoredErrors></worksheet>PK\u0003\u0004\u0014\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000�Čֶ\u0007\u0000\u0000�\u0007\u0000\u0000\u0018\u0000\u0000\u0000xl/worksheets/sheet2.xml<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>\r\n<worksheet xmlns=\"http://schemas.openxmlformats.org/spreadsheetml/2006/main\" xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\"><dimension ref=\"A1:B16\"/><sheetViews><sheetView workbookViewId=\"0\"/></sheetViews><sheetData><row r=\"1\"><c r=\"A1\" t=\"str\"><v>导入模板说明</v></c></row><row r=\"2\"><c r=\"A2\" t=\"str\"><v></v></c></row><row r=\"3\"><c r=\"A3\" t=\"str\"><v>列名说明：</v></c></row><row r=\"4\"><c r=\"A4\" t=\"str\"><v>一级分类 ~ 五级分类</v></c><c r=\"B4\" t=\"str\"><v>组织层级路径，系统会自动创建对应组织（可为空，为空时使用手动选择的组织）</v></c></row><row r=\"5\"><c r=\"A5\" t=\"str\"><v>数据项</v></c><c r=\"B5\" t=\"str\"><v>必填，隐私数据项名称</v></c></row><row r=\"6\"><c r=\"A6\" t=\"str\"><v>综合等级</v></c><c r=\"B6\" t=\"str\"><v>必填，取值范围 1-5</v></c></row><row r=\"7\"><c r=\"A7\" t=\"str\"><v>机密性</v></c><c r=\"B7\" t=\"str\"><v>必填，取值范围 1-5</v></c></row><row r=\"8\"><c r=\"A8\" t=\"str\"><v>完整性</v></c><c r=\"B8\" t=\"str\"><v>必填，取值范围 1-5</v></c></row><row r=\"9\"><c r=\"A9\" t=\"str\"><v>可用性</v></c><c r=\"B9\" t=\"str\"><v>必填，取值范围 1-5</v></c></row><row r=\"10\"><c r=\"A10\" t=\"str\"><v>合规性</v></c><c r=\"B10\" t=\"str\"><v>必填，取值范围 1-5</v></c></row><row r=\"11\"><c r=\"A11\" t=\"str\"><v></v></c></row><row r=\"12\"><c r=\"A12\" t=\"str\"><v>注意事项：</v></c></row><row r=\"13\"><c r=\"A13\" t=\"str\"><v>1. 同一组织下不允许存在重名数据项</v></c></row><row r=\"14\"><c r=\"A14\" t=\"str\"><v>2. 所有等级字段必须为 1-5 的整数</v></c></row><row r=\"15\"><c r=\"A15\" t=\"str\"><v>3. 支持多Sheet页导入，每个Sheet页格式一致</v></c></row><row r=\"16\"><c r=\"A16\" t=\"str\"><v>4. 组织分类列可为空，此时使用上传时选择的组织</v></c></row></sheetData><ignoredErrors><ignoredError numberStoredAsText=\"1\" sqref=\"A1:B16\"/></ignoredErrors></worksheet>PK\u0003\u0004\u0014\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000`�\u0000��\u0003\u0000\u0000�\u0003\u0000\u0000\u000f\u0000\u0000\u0000xl/metadata.xml<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>\r\n<metadata xmlns=\"http://schemas.openxmlformats.org/spreadsheetml/2006/main\" xmlns:xlrd=\"http://schemas.microsoft.com/office/spreadsheetml/2017/richdata\" xmlns:xda=\"http://schemas.microsoft.com/office/spreadsheetml/2017/dynamicarray\">\n  <metadataTypes count=\"1\">\n    <metadataType name=\"XLDAPR\" minSupportedVersion=\"120000\" copy=\"1\" pasteAll=\"1\" pasteValues=\"1\" merge=\"1\" splitFirst=\"1\" rowColShift=\"1\" clearFormats=\"1\" clearComments=\"1\" assign=\"1\" coerce=\"1\" cellMeta=\"1\"/>\n  </metadataTypes>\n  <futureMetadata name=\"XLDAPR\" count=\"1\">\n    <bk>\n      <extLst>\n        <ext uri=\"{bdbb8cdc-fa1e-496e-a857-3c3f30c029c3}\">\n          <xda:dynamicArrayProperties fDynamic=\"1\" fCollapsed=\"0\"/>\n        </ext>\n      </extLst>\n    </bk>\n  </futureMetadata>\n  <cellMetadata count=\"1\">\n    <bk>\n      <rc t=\"1\" v=\"0\"/>\n    </bk>\n  </cellMetadata>\n</metadata>PK\u0003\u0004\u0014\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000.�\u0004�v\u0001\u0000\u0000v\u0001\u0000\u0000\u000f\u0000\u0000\u0000xl/workbook.xml<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>\r\n<workbook xmlns=\"http://schemas.openxmlformats.org/spreadsheetml/2006/main\" xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\"><workbookPr codeName=\"ThisWorkbook\"/><sheets><sheet name=\"导入数据\" sheetId=\"1\" r:id=\"rId1\"/><sheet name=\"说明\" sheetId=\"2\" r:id=\"rId2\"/></sheets></workbook>PK\u0003\u0004\u0014\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000Jj\u0011�L\u0002\u0000\u0000L\u0002\u0000\u0000\u000b\u0000\u0000\u0000_rels/.rels<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>\r\n<Relationships xmlns=\"http://schemas.openxmlformats.org/package/2006/relationships\"><Relationship Id=\"rId2\" Type=\"http://schemas.openxmlformats.org/package/2006/relationships/metadata/core-properties\" Target=\"docProps/core.xml\"/><Relationship Id=\"rId3\" Type=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships/extended-properties\" Target=\"docProps/app.xml\"/><Relationship Id=\"rId1\" Type=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships/officeDocument\" Target=\"xl/workbook.xml\"/></Relationships>PK\u0003\u0004\u0014\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000��#\fS\u0002\u0000\u0000S\u0002\u0000\u0000\u0010\u0000\u0000\u0000docProps/app.xml<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>\r\n<Properties xmlns=\"http://schemas.openxmlformats.org/officeDocument/2006/extended-properties\" xmlns:vt=\"http://schemas.openxmlformats.org/officeDocument/2006/docPropsVTypes\"><Application>SheetJS</Application><HeadingPairs><vt:vector size=\"2\" baseType=\"variant\"><vt:variant><vt:lpstr>Worksheets</vt:lpstr></vt:variant><vt:variant><vt:i4>2</vt:i4></vt:variant></vt:vector></HeadingPairs><TitlesOfParts><vt:vector size=\"2\" baseType=\"lpstr\"><vt:lpstr>导入数据</vt:lpstr><vt:lpstr>说明</vt:lpstr></vt:vector></TitlesOfParts></Properties>PK\u0003\u0004\u0014\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000֒|\u0011Z\u0001\u0000\u0000Z\u0001\u0000\u0000\u0011\u0000\u0000\u0000docProps/core.xml<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>\r\n<cp:coreProperties xmlns:cp=\"http://schemas.openxmlformats.org/package/2006/metadata/core-properties\" xmlns:dc=\"http://purl.org/dc/elements/1.1/\" xmlns:dcterms=\"http://purl.org/dc/terms/\" xmlns:dcmitype=\"http://purl.org/dc/dcmitype/\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"/>PK\u0003\u0004\u0014\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000�uɍ�\b\u0000\u0000�\b\u0000\u0000\u0013\u0000\u0000\u0000[Content_Types].xml<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>\r\n<Types xmlns=\"http://schemas.openxmlformats.org/package/2006/content-types\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"><Default Extension=\"xml\" ContentType=\"application/xml\"/><Default Extension=\"bin\" ContentType=\"application/vnd.ms-excel.sheet.binary.macroEnabled.main\"/><Default Extension=\"vml\" ContentType=\"application/vnd.openxmlformats-officedocument.vmlDrawing\"/><Default Extension=\"data\" ContentType=\"application/vnd.openxmlformats-officedocument.model+data\"/><Default Extension=\"bmp\" ContentType=\"image/bmp\"/><Default Extension=\"png\" ContentType=\"image/png\"/><Default Extension=\"gif\" ContentType=\"image/gif\"/><Default Extension=\"emf\" ContentType=\"image/x-emf\"/><Default Extension=\"wmf\" ContentType=\"image/x-wmf\"/><Default Extension=\"jpg\" ContentType=\"image/jpeg\"/><Default Extension=\"jpeg\" ContentType=\"image/jpeg\"/><Default Extension=\"tif\" ContentType=\"image/tiff\"/><Default Extension=\"tiff\" ContentType=\"image/tiff\"/><Default Extension=\"pdf\" ContentType=\"application/pdf\"/><Default Extension=\"rels\" ContentType=\"application/vnd.openxmlformats-package.relationships+xml\"/><Override PartName=\"/xl/workbook.xml\" ContentType=\"application/vnd.openxmlformats-officedocument.spreadsheetml.sheet.main+xml\"/><Override PartName=\"/xl/worksheets/sheet1.xml\" ContentType=\"application/vnd.openxmlformats-officedocument.spreadsheetml.worksheet+xml\"/><Override PartName=\"/xl/worksheets/sheet2.xml\" ContentType=\"application/vnd.openxmlformats-officedocument.spreadsheetml.worksheet+xml\"/><Override PartName=\"/xl/theme/theme1.xml\" ContentType=\"application/vnd.openxmlformats-officedocument.theme+xml\"/><Override PartName=\"/xl/styles.xml\" ContentType=\"application/vnd.openxmlformats-officedocument.spreadsheetml.styles+xml\"/><Override PartName=\"/docProps/core.xml\" ContentType=\"application/vnd.openxmlformats-package.core-properties+xml\"/><Override PartName=\"/docProps/app.xml\" ContentType=\"application/vnd.openxmlformats-officedocument.extended-properties+xml\"/><Override PartName=\"/xl/metadata.xml\" ContentType=\"application/vnd.openxmlformats-officedocument.spreadsheetml.sheetMetadata+xml\"/></Types>PK\u0001\u0002\u0000\u0000\u0014\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000�a<'B\u0003\u0000\u0000B\u0003\u0000\u0000\u001a\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000xl/_rels/workbook.xml.relsPK\u0001\u0002\u0000\u0000\u0014\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u00000\u000f�k�\u001d\u0000\u0000�\u001d\u0000\u0000\u0013\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000z\u0003\u0000\u0000xl/theme/theme1.xmlPK\u0001\u0002\u0000\u0000\u0014\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000U�\u0004�Z\u0004\u0000\u0000Z\u0004\u0000\u0000\r\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000�!\u0000\u0000xl/styles.xmlPK\u0001\u0002\u0000\u0000\u0014\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000!r\u000b�O\n\u0000\u0000O\n\u0000\u0000\u0018\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u000e&\u0000\u0000xl/worksheets/sheet1.xmlPK\u0001\u0002\u0000\u0000\u0014\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000�Čֶ\u0007\u0000\u0000�\u0007\u0000\u0000\u0018\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000�0\u0000\u0000xl/worksheets/sheet2.xmlPK\u0001\u0002\u0000\u0000\u0014\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000`�\u0000��\u0003\u0000\u0000�\u0003\u0000\u0000\u000f\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u00008\u0000\u0000xl/metadata.xmlPK\u0001\u0002\u0000\u0000\u0014\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000.�\u0004�v\u0001\u0000\u0000v\u0001\u0000\u0000\u000f\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u00004<\u0000\u0000xl/workbook.xmlPK\u0001\u0002\u0000\u0000\u0014\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000Jj\u0011�L\u0002\u0000\u0000L\u0002\u0000\u0000\u000b\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000�=\u0000\u0000_rels/.relsPK\u0001\u0002\u0000\u0000\u0014\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000��#\fS\u0002\u0000\u0000S\u0002\u0000\u0000\u0010\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000L@\u0000\u0000docProps/app.xmlPK\u0001\u0002\u0000\u0000\u0014\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000֒|\u0011Z\u0001\u0000\u0000Z\u0001\u0000\u0000\u0011\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000�B\u0000\u0000docProps/core.xmlPK\u0001\u0002\u0000\u0000\u0014\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000�uɍ�\b\u0000\u0000�\b\u0000\u0000\u0013\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000VD\u0000\u0000[Content_Types].xmlPK\u0005\u0006\u0000\u0000\u0000\u0000\u000b\u0000\u000b\u0000�\u0002\u0000\u0000$M\u0000\u0000\u0000\u0000"
+    },
+    "error": null
+  },
+  {
+    "testCaseId": "REV-001",
+    "testCaseName": "查询待审核数据",
+    "module": "数据审核",
+    "testType": "functional",
+    "priority": "high",
+    "strategy": "功能测试 - 验证功能按需求正确实现",
+    "status": "PASS",
+    "duration": 4,
+    "expected": {
+      "status": 200,
+      "body": "array"
+    },
+    "actual": {
+      "status": 200,
+      "body": [
+        {
+          "id": 15,
+          "batch_id": "121fe636-dfe2-44ef-a092-4e02b2572646",
+          "org_id": 8,
+          "data_item": "组织数据3",
+          "grade": "2",
+          "confidentiality": "2",
+          "integrity": "2",
+          "availability": "2",
+          "compliance": "2",
+          "source_sheet": "Sheet1",
+          "type": "new",
+          "status": "pending",
+          "existing_grade": "",
+          "existing_confidentiality": "",
+          "existing_integrity": "",
+          "existing_availability": "",
+          "existing_compliance": "",
+          "created_at": "2026-06-02 09:18:42",
+          "source": "import",
+          "privacy_id": null
+        },
+        {
+          "id": 14,
+          "batch_id": "121fe636-dfe2-44ef-a092-4e02b2572646",
+          "org_id": 6,
+          "data_item": "组织数据2",
+          "grade": "4",
+          "confidentiality": "4",
+          "integrity": "4",
+          "availability": "4",
+          "compliance": "4",
+          "source_sheet": "Sheet1",
+          "type": "new",
+          "status": "pending",
+          "existing_grade": "",
+          "existing_confidentiality": "",
+          "existing_integrity": "",
+          "existing_availability": "",
+          "existing_compliance": "",
+          "created_at": "2026-06-02 09:18:42",
+          "source": "import",
+          "privacy_id": null
+        },
+        {
+          "id": 13,
+          "batch_id": "121fe636-dfe2-44ef-a092-4e02b2572646",
+          "org_id": 5,
+          "data_item": "组织数据1",
+          "grade": "3",
+          "confidentiality": "3",
+          "integrity": "3",
+          "availability": "3",
+          "compliance": "3",
+          "source_sheet": "Sheet1",
+          "type": "new",
+          "status": "pending",
+          "existing_grade": "",
+          "existing_confidentiality": "",
+          "existing_integrity": "",
+          "existing_availability": "",
+          "existing_compliance": "",
+          "created_at": "2026-06-02 09:18:42",
+          "source": "import",
+          "privacy_id": null
+        },
+        {
+          "id": 12,
+          "batch_id": "3cca7da8-3be1-488e-8d56-71edae0f7203",
+          "org_id": 2,
+          "data_item": "唯一数据",
+          "grade": "2",
+          "confidentiality": "2",
+          "integrity": "2",
+          "availability": "2",
+          "compliance": "2",
+          "source_sheet": "Sheet1",
+          "type": "new",
+          "status": "pending",
+          "existing_grade": "",
+          "existing_confidentiality": "",
+          "existing_integrity": "",
+          "existing_availability": "",
+          "existing_compliance": "",
+          "created_at": "2026-06-02 09:18:42",
+          "source": "import",
+          "privacy_id": null
+        },
+        {
+          "id": 11,
+          "batch_id": "3cca7da8-3be1-488e-8d56-71edae0f7203",
+          "org_id": 2,
+          "data_item": "重复数据",
+          "grade": "3",
+          "confidentiality": "3",
+          "integrity": "3",
+          "availability": "3",
+          "compliance": "3",
+          "source_sheet": "Sheet1",
+          "type": "new",
+          "status": "pending",
+          "existing_grade": "",
+          "existing_confidentiality": "",
+          "existing_integrity": "",
+          "existing_availability": "",
+          "existing_compliance": "",
+          "created_at": "2026-06-02 09:18:42",
+          "source": "import",
+          "privacy_id": null
+        },
+        {
+          "id": 10,
+          "batch_id": "33a6a2ca-62ed-4302-94dd-b7648ae978eb",
+          "org_id": 2,
+          "data_item": "测试数据3",
+          "grade": "4",
+          "confidentiality": "2",
+          "integrity": "4",
+          "availability": "3",
+          "compliance": "4",
+          "source_sheet": "Sheet1",
+          "type": "new",
+          "status": "pending",
+          "existing_grade": "",
+          "existing_confidentiality": "",
+          "existing_integrity": "",
+          "existing_availability": "",
+          "existing_compliance": "",
+          "created_at": "2026-06-02 09:18:42",
+          "source": "import",
+          "privacy_id": null
+        },
+        {
+          "id": 9,
+          "batch_id": "33a6a2ca-62ed-4302-94dd-b7648ae978eb",
+          "org_id": 2,
+          "data_item": "测试数据2",
+          "grade": "2",
+          "confidentiality": "4",
+          "integrity": "3",
+          "availability": "5",
+          "compliance": "3",
+          "source_sheet": "Sheet1",
+          "type": "new",
+          "status": "pending",
+          "existing_grade": "",
+          "existing_confidentiality": "",
+          "existing_integrity": "",
+          "existing_availability": "",
+          "existing_compliance": "",
+          "created_at": "2026-06-02 09:18:42",
+          "source": "import",
+          "privacy_id": null
+        },
+        {
+          "id": 8,
+          "batch_id": "33a6a2ca-62ed-4302-94dd-b7648ae978eb",
+          "org_id": 2,
+          "data_item": "测试数据1",
+          "grade": "3",
+          "confidentiality": "3",
+          "integrity": "3",
+          "availability": "3",
+          "compliance": "3",
+          "source_sheet": "Sheet1",
+          "type": "new",
+          "status": "pending",
+          "existing_grade": "",
+          "existing_confidentiality": "",
+          "existing_integrity": "",
+          "existing_availability": "",
+          "existing_compliance": "",
+          "created_at": "2026-06-02 09:18:42",
+          "source": "import",
+          "privacy_id": null
+        },
+        {
+          "id": 7,
+          "batch_id": "00146bda-8b0f-4a7a-8fa4-e51c7ff0015d",
+          "org_id": 2,
+          "data_item": "删除测试数据2",
+          "grade": "3",
+          "confidentiality": "3",
+          "integrity": "3",
+          "availability": "3",
+          "compliance": "3",
+          "source_sheet": "",
+          "type": "delete",
+          "status": "pending",
+          "existing_grade": "",
+          "existing_confidentiality": "",
+          "existing_integrity": "",
+          "existing_availability": "",
+          "existing_compliance": "",
+          "created_at": "2026-06-02 09:18:42",
+          "source": "gui",
+          "privacy_id": 4
+        },
+        {
+          "id": 4,
+          "batch_id": "6f6ea2a7-1545-4eb8-8763-4a8fc9514cc0",
+          "org_id": 2,
+          "data_item": "更新测试数据",
+          "grade": "3",
+          "confidentiality": "3",
+          "integrity": "3",
+          "availability": "3",
+          "compliance": "3",
+          "source_sheet": "",
+          "type": "update",
+          "status": "pending",
+          "existing_grade": "2",
+          "existing_confidentiality": "3",
+          "existing_integrity": "4",
+          "existing_availability": "5",
+          "existing_compliance": "3",
+          "created_at": "2026-06-02 09:18:42",
+          "source": "gui",
+          "privacy_id": 3
+        }
+      ]
+    },
+    "error": null
+  },
+  {
+    "testCaseId": "REV-002",
+    "testCaseName": "审核通过",
+    "module": "数据审核",
+    "testType": "functional",
+    "priority": "high",
+    "strategy": "功能测试 - 验证功能按需求正确实现",
+    "status": "PASS",
+    "duration": 9,
+    "expected": {
+      "status": 200,
+      "body": {
+        "success": true
+      }
+    },
+    "actual": {
+      "status": 200,
+      "body": {
+        "success": true
+      }
+    },
+    "error": null
+  },
+  {
+    "testCaseId": "REV-003",
+    "testCaseName": "审核驳回",
+    "module": "数据审核",
+    "testType": "functional",
+    "priority": "high",
+    "strategy": "功能测试 - 验证功能按需求正确实现",
+    "status": "PASS",
+    "duration": 15,
+    "expected": {
+      "status": 200,
+      "body": {
+        "success": true
+      }
+    },
+    "actual": {
+      "status": 200,
+      "body": {
+        "success": true
+      }
+    },
+    "error": null
+  },
+  {
+    "testCaseId": "REV-004",
+    "testCaseName": "批量审核",
+    "module": "数据审核",
+    "testType": "functional",
+    "priority": "medium",
+    "strategy": "功能测试 - 验证功能按需求正确实现",
+    "status": "PASS",
+    "duration": 35,
+    "expected": {
+      "status": 200,
+      "body": {
+        "processed": "positive_integer"
+      }
+    },
+    "actual": {
+      "status": 200,
+      "body": {
+        "success": true,
+        "processed": 3
+      }
+    },
+    "error": null
+  },
+  {
+    "testCaseId": "REV-005",
+    "testCaseName": "审核不存在的数据",
+    "module": "数据审核",
+    "testType": "exception",
+    "priority": "medium",
+    "strategy": "异常测试 - 验证异常输入处理",
+    "status": "PASS",
+    "duration": 3,
+    "expected": {
+      "status": 404,
+      "body": {
+        "error": "string_contains:不存在"
+      }
+    },
+    "actual": {
+      "status": 404,
+      "body": {
+        "error": "记录不存在或已处理"
+      }
+    },
+    "error": null
+  },
+  {
+    "testCaseId": "REC-001",
+    "testCaseName": "修改总表触发整改任务",
+    "module": "整改任务",
+    "testType": "functional",
+    "priority": "high",
+    "strategy": "功能测试 - 验证功能按需求正确实现",
+    "status": "PASS",
+    "duration": 38,
+    "expected": {
+      "status": 200,
+      "body": {
+        "rectification_tasks_created": "positive_integer"
+      }
+    },
+    "actual": {
+      "status": 200,
+      "body": {
+        "id": 1,
+        "data_item": "整改测试数据项",
+        "grade": "5",
+        "confidentiality": "5",
+        "integrity": "5",
+        "availability": "5",
+        "compliance": "5",
+        "source": "gui",
+        "created_at": "2026-06-02 09:18:42",
+        "updated_at": "2026-06-02 09:18:42",
+        "rectification_tasks_created": 1
+      }
+    },
+    "error": null
+  },
+  {
+    "testCaseId": "REC-002",
+    "testCaseName": "查询整改任务",
+    "module": "整改任务",
+    "testType": "functional",
+    "priority": "high",
+    "strategy": "功能测试 - 验证功能按需求正确实现",
+    "status": "PASS",
+    "duration": 9,
+    "expected": {
+      "status": 200,
+      "body": "array"
+    },
+    "actual": {
+      "status": 200,
+      "body": [
+        {
+          "id": 1,
+          "privacy_id": 10,
+          "org_id": 2,
+          "data_item": "整改测试数据项",
+          "global_grade": "5",
+          "global_confidentiality": "5",
+          "global_integrity": "5",
+          "global_availability": "5",
+          "global_compliance": "5",
+          "org_grade": "3",
+          "org_confidentiality": "3",
+          "org_integrity": "3",
+          "org_availability": "3",
+          "org_compliance": "3",
+          "status": "pending",
+          "created_at": "2026-06-02 09:18:42",
+          "confirmed_at": null,
+          "org_name": "技术部"
+        }
+      ]
+    },
+    "error": null
+  },
+  {
+    "testCaseId": "REC-003",
+    "testCaseName": "确认整改任务",
+    "module": "整改任务",
+    "testType": "functional",
+    "priority": "high",
+    "strategy": "功能测试 - 验证功能按需求正确实现",
+    "status": "PASS",
+    "duration": 7,
+    "expected": {
+      "status": 200,
+      "body": {
+        "success": true
+      }
+    },
+    "actual": {
+      "status": 200,
+      "body": {
+        "success": true
+      }
+    },
+    "error": null
+  },
+  {
+    "testCaseId": "REC-004",
+    "testCaseName": "批量确认整改",
+    "module": "整改任务",
+    "testType": "functional",
+    "priority": "medium",
+    "strategy": "功能测试 - 验证功能按需求正确实现",
+    "status": "PASS",
+    "duration": 25,
+    "expected": {
+      "status": 200,
+      "body": {
+        "confirmed": "positive_integer"
+      }
+    },
+    "actual": {
+      "status": 200,
+      "body": {
+        "success": true,
+        "confirmed": 1
+      }
+    },
+    "error": null
+  },
+  {
+    "testCaseId": "REC-005",
+    "testCaseName": "忽略整改任务",
+    "module": "整改任务",
+    "testType": "functional",
+    "priority": "medium",
+    "strategy": "功能测试 - 验证功能按需求正确实现",
+    "status": "PASS",
+    "duration": 17,
+    "expected": {
+      "status": 200,
+      "body": {
+        "success": true
+      }
+    },
+    "actual": {
+      "status": 200,
+      "body": {
+        "success": true
+      }
+    },
+    "error": null
+  },
+  {
+    "testCaseId": "AUD-001",
+    "testCaseName": "查询审计日志",
+    "module": "审计日志",
+    "testType": "functional",
+    "priority": "high",
+    "strategy": "功能测试 - 验证功能按需求正确实现",
+    "status": "PASS",
+    "duration": 4,
+    "expected": {
+      "status": 200,
+      "body": {
+        "rows": "array",
+        "total": "positive_integer"
+      }
+    },
+    "actual": {
+      "status": 200,
+      "body": {
+        "rows": [
+          {
+            "id": 40,
+            "privacy_id": 1,
+            "org_id": null,
+            "action": "update_global",
+            "data_item": "整改测试数据项",
+            "old_values": {
+              "data_item": "整改测试数据项",
+              "grade": "1",
+              "confidentiality": "1",
+              "integrity": "1",
+              "availability": "1",
+              "compliance": "1"
+            },
+            "new_values": {
+              "data_item": "整改测试数据项",
+              "grade": "5",
+              "confidentiality": "5",
+              "integrity": "5",
+              "availability": "5",
+              "compliance": "5"
+            },
+            "batch_id": "",
+            "source": "manual",
+            "created_at": "2026-06-02 09:18:42"
+          },
+          {
+            "id": 39,
+            "privacy_id": 10,
+            "org_id": 2,
+            "action": "rectification_confirm",
+            "data_item": "整改测试数据项",
+            "old_values": {
+              "grade": "5",
+              "confidentiality": "5",
+              "integrity": "5",
+              "availability": "5",
+              "compliance": "5"
+            },
+            "new_values": {
+              "grade": "2",
+              "confidentiality": "2",
+              "integrity": "2",
+              "availability": "2",
+              "compliance": "2"
+            },
+            "batch_id": "",
+            "source": "rectification",
+            "created_at": "2026-06-02 09:18:42"
+          },
+          {
+            "id": 38,
+            "privacy_id": 1,
+            "org_id": null,
+            "action": "update_global",
+            "data_item": "整改测试数据项",
+            "old_values": {
+              "data_item": "整改测试数据项",
+              "grade": "2",
+              "confidentiality": "2",
+              "integrity": "2",
+              "availability": "2",
+              "compliance": "2"
+            },
+            "new_values": {
+              "data_item": "整改测试数据项",
+              "grade": "1",
+              "confidentiality": "1",
+              "integrity": "1",
+              "availability": "1",
+              "compliance": "1"
+            },
+            "batch_id": "",
+            "source": "manual",
+            "created_at": "2026-06-02 09:18:42"
+          },
+          {
+            "id": 37,
+            "privacy_id": 1,
+            "org_id": null,
+            "action": "update_global",
+            "data_item": "整改测试数据项",
+            "old_values": {
+              "data_item": "整改测试数据项",
+              "grade": "5",
+              "confidentiality": "5",
+              "integrity": "5",
+              "availability": "5",
+              "compliance": "5"
+            },
+            "new_values": {
+              "data_item": "整改测试数据项",
+              "grade": "2",
+              "confidentiality": "2",
+              "integrity": "2",
+              "availability": "2",
+              "compliance": "2"
+            },
+            "batch_id": "",
+            "source": "manual",
+            "created_at": "2026-06-02 09:18:42"
+          },
+          {
+            "id": 36,
+            "privacy_id": 10,
+            "org_id": 2,
+            "action": "rectification_confirm",
+            "data_item": "整改测试数据项",
+            "old_values": {
+              "grade": "3",
+              "confidentiality": "3",
+              "integrity": "3",
+              "availability": "3",
+              "compliance": "3"
+            },
+            "new_values": {
+              "grade": "5",
+              "confidentiality": "5",
+              "integrity": "5",
+              "availability": "5",
+              "compliance": "5"
+            },
+            "batch_id": "",
+            "source": "rectification",
+            "created_at": "2026-06-02 09:18:42"
+          },
+          {
+            "id": 35,
+            "privacy_id": 1,
+            "org_id": null,
+            "action": "update_global",
+            "data_item": "整改测试数据项",
+            "old_values": {
+              "data_item": "整改测试数据项",
+              "grade": "3",
+              "confidentiality": "3",
+              "integrity": "3",
+              "availability": "3",
+              "compliance": "3"
+            },
+            "new_values": {
+              "data_item": "整改测试数据项",
+              "grade": "5",
+              "confidentiality": "5",
+              "integrity": "5",
+              "availability": "5",
+              "compliance": "5"
+            },
+            "batch_id": "",
+            "source": "manual",
+            "created_at": "2026-06-02 09:18:42"
+          },
+          {
+            "id": 34,
+            "privacy_id": 10,
+            "org_id": 2,
+            "action": "approve_new",
+            "data_item": "整改测试数据项",
+            "old_values": {},
+            "new_values": {
+              "data_item": "整改测试数据项",
+              "grade": "3",
+              "confidentiality": "3",
+              "integrity": "3",
+              "availability": "3",
+              "compliance": "3"
+            },
+            "batch_id": "f4027346-887e-4734-a8a3-a1d2fcdf52fd",
+            "source": "review",
+            "created_at": "2026-06-02 09:18:42"
+          },
+          {
+            "id": 33,
+            "privacy_id": null,
+            "org_id": 2,
+            "action": "gui_create",
+            "data_item": "整改测试数据项",
+            "old_values": {},
+            "new_values": {
+              "data_item": "整改测试数据项",
+              "grade": "3",
+              "confidentiality": "3",
+              "integrity": "3",
+              "availability": "3",
+              "compliance": "3"
+            },
+            "batch_id": "f4027346-887e-4734-a8a3-a1d2fcdf52fd",
+            "source": "gui",
+            "created_at": "2026-06-02 09:18:42"
+          },
+          {
+            "id": 32,
+            "privacy_id": 1,
+            "org_id": null,
+            "action": "update_global",
+            "data_item": "整改测试数据项",
+            "old_values": {
+              "data_item": "测试数据",
+              "grade": "4",
+              "confidentiality": "4",
+              "integrity": "3",
+              "availability": "3",
+              "compliance": "4"
+            },
+            "new_values": {
+              "data_item": "整改测试数据项",
+              "grade": "3",
+              "confidentiality": "3",
+              "integrity": "3",
+              "availability": "3",
+              "compliance": "3"
+            },
+            "batch_id": "",
+            "source": "manual",
+            "created_at": "2026-06-02 09:18:42"
+          },
+          {
+            "id": 31,
+            "privacy_id": 9,
+            "org_id": 2,
+            "action": "approve_new",
+            "data_item": "批量测试0",
+            "old_values": {},
+            "new_values": {
+              "data_item": "批量测试0",
+              "grade": "3",
+              "confidentiality": "3",
+              "integrity": "3",
+              "availability": "3",
+              "compliance": "3"
+            },
+            "batch_id": "260789db-01c5-471c-bcf9-85a417596c94",
+            "source": "review",
+            "created_at": "2026-06-02 09:18:42"
+          },
+          {
+            "id": 30,
+            "privacy_id": 8,
+            "org_id": 2,
+            "action": "approve_new",
+            "data_item": "批量测试1",
+            "old_values": {},
+            "new_values": {
+              "data_item": "批量测试1",
+              "grade": "3",
+              "confidentiality": "3",
+              "integrity": "3",
+              "availability": "3",
+              "compliance": "3"
+            },
+            "batch_id": "c777c57b-5bd2-4633-92ff-360a26f5f1b8",
+            "source": "review",
+            "created_at": "2026-06-02 09:18:42"
+          },
+          {
+            "id": 29,
+            "privacy_id": 7,
+            "org_id": 2,
+            "action": "approve_new",
+            "data_item": "批量测试2",
+            "old_values": {},
+            "new_values": {
+              "data_item": "批量测试2",
+              "grade": "3",
+              "confidentiality": "3",
+              "integrity": "3",
+              "availability": "3",
+              "compliance": "3"
+            },
+            "batch_id": "59c2d96d-0cf5-40ac-bab1-2763c86817af",
+            "source": "review",
+            "created_at": "2026-06-02 09:18:42"
+          },
+          {
+            "id": 28,
+            "privacy_id": null,
+            "org_id": 2,
+            "action": "gui_create",
+            "data_item": "批量测试2",
+            "old_values": {},
+            "new_values": {
+              "data_item": "批量测试2",
+              "grade": "3",
+              "confidentiality": "3",
+              "integrity": "3",
+              "availability": "3",
+              "compliance": "3"
+            },
+            "batch_id": "59c2d96d-0cf5-40ac-bab1-2763c86817af",
+            "source": "gui",
+            "created_at": "2026-06-02 09:18:42"
+          },
+          {
+            "id": 27,
+            "privacy_id": null,
+            "org_id": 2,
+            "action": "gui_create",
+            "data_item": "批量测试1",
+            "old_values": {},
+            "new_values": {
+              "data_item": "批量测试1",
+              "grade": "3",
+              "confidentiality": "3",
+              "integrity": "3",
+              "availability": "3",
+              "compliance": "3"
+            },
+            "batch_id": "c777c57b-5bd2-4633-92ff-360a26f5f1b8",
+            "source": "gui",
+            "created_at": "2026-06-02 09:18:42"
+          },
+          {
+            "id": 26,
+            "privacy_id": null,
+            "org_id": 2,
+            "action": "gui_create",
+            "data_item": "批量测试0",
+            "old_values": {},
+            "new_values": {
+              "data_item": "批量测试0",
+              "grade": "3",
+              "confidentiality": "3",
+              "integrity": "3",
+              "availability": "3",
+              "compliance": "3"
+            },
+            "batch_id": "260789db-01c5-471c-bcf9-85a417596c94",
+            "source": "gui",
+            "created_at": "2026-06-02 09:18:42"
+          },
+          {
+            "id": 25,
+            "privacy_id": null,
+            "org_id": 2,
+            "action": "reject",
+            "data_item": "驳回测试",
+            "old_values": {
+              "data_item": "驳回测试",
+              "grade": "3",
+              "confidentiality": "3",
+              "integrity": "3",
+              "availability": "3",
+              "compliance": "3"
+            },
+            "new_values": {},
+            "batch_id": "877a411a-3595-4055-9868-04f6c9f8c504",
+            "source": "review",
+            "created_at": "2026-06-02 09:18:42"
+          },
+          {
+            "id": 24,
+            "privacy_id": null,
+            "org_id": 2,
+            "action": "gui_create",
+            "data_item": "驳回测试",
+            "old_values": {},
+            "new_values": {
+              "data_item": "驳回测试",
+              "grade": "3",
+              "confidentiality": "3",
+              "integrity": "3",
+              "availability": "3",
+              "compliance": "3"
+            },
+            "batch_id": "877a411a-3595-4055-9868-04f6c9f8c504",
+            "source": "gui",
+            "created_at": "2026-06-02 09:18:42"
+          },
+          {
+            "id": 23,
+            "privacy_id": 6,
+            "org_id": 8,
+            "action": "approve_new",
+            "data_item": "组织数据3",
+            "old_values": {},
+            "new_values": {
+              "data_item": "组织数据3",
+              "grade": "2",
+              "confidentiality": "2",
+              "integrity": "2",
+              "availability": "2",
+              "compliance": "2"
+            },
+            "batch_id": "121fe636-dfe2-44ef-a092-4e02b2572646",
+            "source": "review",
+            "created_at": "2026-06-02 09:18:42"
+          },
+          {
+            "id": 22,
+            "privacy_id": null,
+            "org_id": null,
+            "action": "import",
+            "data_item": "[batch] 3 items",
+            "old_values": {},
+            "new_values": {
+              "total": 3,
+              "new": 3,
+              "conflict": 0,
+              "global_conflict": 0,
+              "skipped": 0,
+              "duplicate": 0,
+              "orgs_created": 5
+            },
+            "batch_id": "121fe636-dfe2-44ef-a092-4e02b2572646",
+            "source": "excel_import",
+            "created_at": "2026-06-02 09:18:42"
+          },
+          {
+            "id": 21,
+            "privacy_id": null,
+            "org_id": 2,
+            "action": "import",
+            "data_item": "[batch] 3 items",
+            "old_values": {},
+            "new_values": {
+              "total": 3,
+              "new": 2,
+              "conflict": 0,
+              "global_conflict": 0,
+              "skipped": 0,
+              "duplicate": 1,
+              "orgs_created": 0
+            },
+            "batch_id": "3cca7da8-3be1-488e-8d56-71edae0f7203",
+            "source": "excel_import",
+            "created_at": "2026-06-02 09:18:42"
+          },
+          {
+            "id": 20,
+            "privacy_id": null,
+            "org_id": 2,
+            "action": "import",
+            "data_item": "[batch] 3 items",
+            "old_values": {},
+            "new_values": {
+              "total": 3,
+              "new": 0,
+              "conflict": 0,
+              "global_conflict": 0,
+              "skipped": 3,
+              "duplicate": 0,
+              "orgs_created": 0
+            },
+            "batch_id": "54fa3963-9e7c-4b83-9b63-00c8c9c434c8",
+            "source": "excel_import",
+            "created_at": "2026-06-02 09:18:42"
+          },
+          {
+            "id": 19,
+            "privacy_id": null,
+            "org_id": 2,
+            "action": "import",
+            "data_item": "[batch] 3 items",
+            "old_values": {},
+            "new_values": {
+              "total": 3,
+              "new": 3,
+              "conflict": 0,
+              "global_conflict": 0,
+              "skipped": 0,
+              "duplicate": 0,
+              "orgs_created": 0
+            },
+            "batch_id": "33a6a2ca-62ed-4302-94dd-b7648ae978eb",
+            "source": "excel_import",
+            "created_at": "2026-06-02 09:18:42"
+          },
+          {
+            "id": 18,
+            "privacy_id": 4,
+            "org_id": 2,
+            "action": "gui_delete",
+            "data_item": "删除测试数据2",
+            "old_values": {
+              "data_item": "删除测试数据2",
+              "grade": "3",
+              "confidentiality": "3",
+              "integrity": "3",
+              "availability": "3",
+              "compliance": "3"
+            },
+            "new_values": {},
+            "batch_id": "00146bda-8b0f-4a7a-8fa4-e51c7ff0015d",
+            "source": "gui",
+            "created_at": "2026-06-02 09:18:42"
+          },
+          {
+            "id": 17,
+            "privacy_id": 5,
+            "org_id": 2,
+            "action": "approve_new",
+            "data_item": "删除测试数据1",
+            "old_values": {},
+            "new_values": {
+              "data_item": "删除测试数据1",
+              "grade": "2",
+              "confidentiality": "3",
+              "integrity": "4",
+              "availability": "5",
+              "compliance": "3"
+            },
+            "batch_id": "44ef8b23-e694-49e5-b74c-527ab1ddf88d",
+            "source": "review",
+            "created_at": "2026-06-02 09:18:42"
+          },
+          {
+            "id": 16,
+            "privacy_id": 4,
+            "org_id": 2,
+            "action": "approve_new",
+            "data_item": "删除测试数据2",
+            "old_values": {},
+            "new_values": {
+              "data_item": "删除测试数据2",
+              "grade": "3",
+              "confidentiality": "3",
+              "integrity": "3",
+              "availability": "3",
+              "compliance": "3"
+            },
+            "batch_id": "02a7432b-a317-413b-8abb-41c0f6bce684",
+            "source": "review",
+            "created_at": "2026-06-02 09:18:42"
+          },
+          {
+            "id": 15,
+            "privacy_id": null,
+            "org_id": 2,
+            "action": "gui_create",
+            "data_item": "删除测试数据2",
+            "old_values": {},
+            "new_values": {
+              "data_item": "删除测试数据2",
+              "grade": "3",
+              "confidentiality": "3",
+              "integrity": "3",
+              "availability": "3",
+              "compliance": "3"
+            },
+            "batch_id": "02a7432b-a317-413b-8abb-41c0f6bce684",
+            "source": "gui",
+            "created_at": "2026-06-02 09:18:42"
+          },
+          {
+            "id": 14,
+            "privacy_id": null,
+            "org_id": 2,
+            "action": "gui_create",
+            "data_item": "删除测试数据1",
+            "old_values": {},
+            "new_values": {
+              "data_item": "删除测试数据1",
+              "grade": "2",
+              "confidentiality": "3",
+              "integrity": "4",
+              "availability": "5",
+              "compliance": "3"
+            },
+            "batch_id": "44ef8b23-e694-49e5-b74c-527ab1ddf88d",
+            "source": "gui",
+            "created_at": "2026-06-02 09:18:42"
+          },
+          {
+            "id": 13,
+            "privacy_id": 3,
+            "org_id": 2,
+            "action": "gui_update",
+            "data_item": "更新测试数据",
+            "old_values": {
+              "data_item": "更新测试数据",
+              "grade": "2",
+              "confidentiality": "3",
+              "integrity": "4",
+              "availability": "5",
+              "compliance": "3"
+            },
+            "new_values": {
+              "data_item": "更新测试数据",
+              "grade": "3",
+              "confidentiality": "3",
+              "integrity": "3",
+              "availability": "3",
+              "compliance": "3"
+            },
+            "batch_id": "6f6ea2a7-1545-4eb8-8763-4a8fc9514cc0",
+            "source": "gui",
+            "created_at": "2026-06-02 09:18:42"
+          },
+          {
+            "id": 12,
+            "privacy_id": 3,
+            "org_id": 2,
+            "action": "approve_new",
+            "data_item": "更新测试数据",
+            "old_values": {},
+            "new_values": {
+              "data_item": "更新测试数据",
+              "grade": "2",
+              "confidentiality": "3",
+              "integrity": "4",
+              "availability": "5",
+              "compliance": "3"
+            },
+            "batch_id": "0ff245e2-9918-4c26-9924-bb4dda1c5a18",
+            "source": "review",
+            "created_at": "2026-06-02 09:18:42"
+          },
+          {
+            "id": 11,
+            "privacy_id": null,
+            "org_id": 2,
+            "action": "gui_create",
+            "data_item": "更新测试数据",
+            "old_values": {},
+            "new_values": {
+              "data_item": "更新测试数据",
+              "grade": "2",
+              "confidentiality": "3",
+              "integrity": "4",
+              "availability": "5",
+              "compliance": "3"
+            },
+            "batch_id": "0ff245e2-9918-4c26-9924-bb4dda1c5a18",
+            "source": "gui",
+            "created_at": "2026-06-02 09:18:42"
+          },
+          {
+            "id": 10,
+            "privacy_id": 2,
+            "org_id": 2,
+            "action": "approve_new",
+            "data_item": "员工工号",
+            "old_values": {},
+            "new_values": {
+              "data_item": "员工工号",
+              "grade": "2",
+              "confidentiality": "3",
+              "integrity": "4",
+              "availability": "5",
+              "compliance": "3"
+            },
+            "batch_id": "ca4a6815-9c86-49ff-8c2b-78468059fb4a",
+            "source": "review",
+            "created_at": "2026-06-02 09:18:42"
+          },
+          {
+            "id": 9,
+            "privacy_id": null,
+            "org_id": 2,
+            "action": "gui_create",
+            "data_item": "员工工号",
+            "old_values": {},
+            "new_values": {
+              "data_item": "员工工号",
+              "grade": "2",
+              "confidentiality": "3",
+              "integrity": "4",
+              "availability": "5",
+              "compliance": "3"
+            },
+            "batch_id": "ca4a6815-9c86-49ff-8c2b-78468059fb4a",
+            "source": "gui",
+            "created_at": "2026-06-02 09:18:42"
+          },
+          {
+            "id": 8,
+            "privacy_id": 5,
+            "org_id": null,
+            "action": "delete_global",
+            "data_item": "临时数据",
+            "old_values": {
+              "data_item": "临时数据",
+              "grade": "3",
+              "confidentiality": "3",
+              "integrity": "3",
+              "availability": "3",
+              "compliance": "3"
+            },
+            "new_values": {},
+            "batch_id": "",
+            "source": "manual",
+            "created_at": "2026-06-02 09:18:42"
+          },
+          {
+            "id": 7,
+            "privacy_id": 5,
+            "org_id": null,
+            "action": "create_global",
+            "data_item": "临时数据",
+            "old_values": {},
+            "new_values": {
+              "data_item": "临时数据",
+              "grade": "3",
+              "confidentiality": "3",
+              "integrity": "3",
+              "availability": "3",
+              "compliance": "3"
+            },
+            "batch_id": "",
+            "source": "manual",
+            "created_at": "2026-06-02 09:18:42"
+          },
+          {
+            "id": 6,
+            "privacy_id": 1,
+            "org_id": null,
+            "action": "update_global",
+            "data_item": "测试数据",
+            "old_values": {
+              "data_item": "测试数据",
+              "grade": "3",
+              "confidentiality": "3",
+              "integrity": "3",
+              "availability": "3",
+              "compliance": "3"
+            },
+            "new_values": {
+              "data_item": "测试数据",
+              "grade": "4",
+              "confidentiality": "4",
+              "integrity": "3",
+              "availability": "3",
+              "compliance": "4"
+            },
+            "batch_id": "",
+            "source": "manual",
+            "created_at": "2026-06-02 09:18:42"
+          },
+          {
+            "id": 5,
+            "privacy_id": 4,
+            "org_id": null,
+            "action": "create_global",
+            "data_item": "测试5",
+            "old_values": {},
+            "new_values": {
+              "data_item": "测试5",
+              "grade": "5",
+              "confidentiality": "5",
+              "integrity": "5",
+              "availability": "5",
+              "compliance": "5"
+            },
+            "batch_id": "",
+            "source": "manual",
+            "created_at": "2026-06-02 09:18:42"
+          },
+          {
+            "id": 4,
+            "privacy_id": 3,
+            "org_id": null,
+            "action": "create_global",
+            "data_item": "测试1",
+            "old_values": {},
+            "new_values": {
+              "data_item": "测试1",
+              "grade": "1",
+              "confidentiality": "1",
+              "integrity": "1",
+              "availability": "1",
+              "compliance": "1"
+            },
+            "batch_id": "",
+            "source": "manual",
+            "created_at": "2026-06-02 09:18:42"
+          },
+          {
+            "id": 3,
+            "privacy_id": 2,
+            "org_id": null,
+            "action": "create_global",
+            "data_item": "用户姓名",
+            "old_values": {},
+            "new_values": {
+              "data_item": "用户姓名",
+              "grade": "3",
+              "confidentiality": "4",
+              "integrity": "3",
+              "availability": "3",
+              "compliance": "4"
+            },
+            "batch_id": "",
+            "source": "manual",
+            "created_at": "2026-06-02 09:18:42"
+          },
+          {
+            "id": 2,
+            "privacy_id": 1,
+            "org_id": 3,
+            "action": "approve_new",
+            "data_item": "测试数据",
+            "old_values": {},
+            "new_values": {
+              "data_item": "测试数据",
+              "grade": "3",
+              "confidentiality": "3",
+              "integrity": "3",
+              "availability": "3",
+              "compliance": "3"
+            },
+            "batch_id": "5ea79ded-455b-4ffa-ab83-1e3f686680c3",
+            "source": "review",
+            "created_at": "2026-06-02 09:18:42"
+          },
+          {
+            "id": 1,
+            "privacy_id": null,
+            "org_id": 3,
+            "action": "gui_create",
+            "data_item": "测试数据",
+            "old_values": {},
+            "new_values": {
+              "data_item": "测试数据",
+              "grade": "3",
+              "confidentiality": "3",
+              "integrity": "3",
+              "availability": "3",
+              "compliance": "3"
+            },
+            "batch_id": "5ea79ded-455b-4ffa-ab83-1e3f686680c3",
+            "source": "gui",
+            "created_at": "2026-06-02 09:18:42"
+          }
+        ],
+        "total": 40,
+        "page": 1,
+        "limit": 50,
+        "pages": 1
+      }
+    },
+    "error": null
+  },
+  {
+    "testCaseId": "AUD-002",
+    "testCaseName": "按组织筛选日志",
+    "module": "审计日志",
+    "testType": "functional",
+    "priority": "medium",
+    "strategy": "功能测试 - 验证功能按需求正确实现",
+    "status": "PASS",
+    "duration": 2,
+    "expected": {
+      "status": 200,
+      "body": {
+        "rows": "array"
+      }
+    },
+    "actual": {
+      "status": 200,
+      "body": {
+        "rows": [],
+        "total": 0,
+        "page": 1,
+        "limit": 50,
+        "pages": 0
+      }
+    },
+    "error": null
+  },
+  {
+    "testCaseId": "AUD-003",
+    "testCaseName": "回退预览",
+    "module": "审计日志",
+    "testType": "functional",
+    "priority": "high",
+    "strategy": "功能测试 - 验证功能按需求正确实现",
+    "status": "PASS",
+    "duration": 10,
+    "expected": {
+      "status": 200,
+      "body": {
+        "before": "object",
+        "after": "object",
+        "current": "object"
+      }
+    },
+    "actual": {
+      "status": 200,
+      "body": {
+        "audit_id": 40,
+        "action": "update_global",
+        "data_item": "整改测试数据项",
+        "before": {
+          "data_item": "整改测试数据项",
+          "grade": "1",
+          "confidentiality": "1",
+          "integrity": "1",
+          "availability": "1",
+          "compliance": "1"
+        },
+        "after": {
+          "data_item": "整改测试数据项",
+          "grade": "5",
+          "confidentiality": "5",
+          "integrity": "5",
+          "availability": "5",
+          "compliance": "5"
+        },
+        "current": {
+          "data_item": "整改测试数据项",
+          "grade": "5",
+          "confidentiality": "5",
+          "integrity": "5",
+          "availability": "5",
+          "compliance": "5"
+        },
+        "current_exists": true
+      }
+    },
+    "error": null
+  },
+  {
+    "testCaseId": "AUD-004",
+    "testCaseName": "执行回退",
+    "module": "审计日志",
+    "testType": "functional",
+    "priority": "high",
+    "strategy": "功能测试 - 验证功能按需求正确实现",
+    "status": "PASS",
+    "duration": 17,
+    "expected": {
+      "status": 200,
+      "body": {
+        "applied": true
+      }
+    },
+    "actual": {
+      "status": 200,
+      "body": {
+        "audit_id": 41,
+        "action": "create_global",
+        "data_item": "回退测试",
+        "before": {},
+        "after": {
+          "data_item": "回退测试",
+          "grade": "3",
+          "confidentiality": "3",
+          "integrity": "3",
+          "availability": "3",
+          "compliance": "3"
+        },
+        "current": {
+          "data_item": "回退测试",
+          "grade": "3",
+          "confidentiality": "3",
+          "integrity": "3",
+          "availability": "3",
+          "compliance": "3"
+        },
+        "current_exists": true,
+        "applied": true
+      }
+    },
+    "error": null
+  },
+  {
+    "testCaseId": "AUD-005",
+    "testCaseName": "审计日志上限",
+    "module": "审计日志",
+    "testType": "boundary",
+    "priority": "medium",
+    "strategy": "边界值测试 - 验证边界条件处理",
+    "status": "PASS",
+    "duration": 4,
+    "expected": {
+      "database": "audit_log_count <= 20000"
+    },
+    "actual": {
+      "status": 200,
+      "body": {
+        "rows": [
+          {
+            "id": 42,
+            "privacy_id": 14,
+            "org_id": null,
+            "action": "delete_global",
+            "data_item": "回退测试",
+            "old_values": {
+              "data_item": "回退测试",
+              "grade": "3",
+              "confidentiality": "3",
+              "integrity": "3",
+              "availability": "3",
+              "compliance": "3"
+            },
+            "new_values": {},
+            "batch_id": "",
+            "source": "rollback",
+            "created_at": "2026-06-02 09:18:43"
+          },
+          {
+            "id": 41,
+            "privacy_id": 14,
+            "org_id": null,
+            "action": "create_global",
+            "data_item": "回退测试",
+            "old_values": {},
+            "new_values": {
+              "data_item": "回退测试",
+              "grade": "3",
+              "confidentiality": "3",
+              "integrity": "3",
+              "availability": "3",
+              "compliance": "3"
+            },
+            "batch_id": "",
+            "source": "manual",
+            "created_at": "2026-06-02 09:18:42"
+          },
+          {
+            "id": 40,
+            "privacy_id": 1,
+            "org_id": null,
+            "action": "update_global",
+            "data_item": "整改测试数据项",
+            "old_values": {
+              "data_item": "整改测试数据项",
+              "grade": "1",
+              "confidentiality": "1",
+              "integrity": "1",
+              "availability": "1",
+              "compliance": "1"
+            },
+            "new_values": {
+              "data_item": "整改测试数据项",
+              "grade": "5",
+              "confidentiality": "5",
+              "integrity": "5",
+              "availability": "5",
+              "compliance": "5"
+            },
+            "batch_id": "",
+            "source": "manual",
+            "created_at": "2026-06-02 09:18:42"
+          },
+          {
+            "id": 39,
+            "privacy_id": 10,
+            "org_id": 2,
+            "action": "rectification_confirm",
+            "data_item": "整改测试数据项",
+            "old_values": {
+              "grade": "5",
+              "confidentiality": "5",
+              "integrity": "5",
+              "availability": "5",
+              "compliance": "5"
+            },
+            "new_values": {
+              "grade": "2",
+              "confidentiality": "2",
+              "integrity": "2",
+              "availability": "2",
+              "compliance": "2"
+            },
+            "batch_id": "",
+            "source": "rectification",
+            "created_at": "2026-06-02 09:18:42"
+          },
+          {
+            "id": 38,
+            "privacy_id": 1,
+            "org_id": null,
+            "action": "update_global",
+            "data_item": "整改测试数据项",
+            "old_values": {
+              "data_item": "整改测试数据项",
+              "grade": "2",
+              "confidentiality": "2",
+              "integrity": "2",
+              "availability": "2",
+              "compliance": "2"
+            },
+            "new_values": {
+              "data_item": "整改测试数据项",
+              "grade": "1",
+              "confidentiality": "1",
+              "integrity": "1",
+              "availability": "1",
+              "compliance": "1"
+            },
+            "batch_id": "",
+            "source": "manual",
+            "created_at": "2026-06-02 09:18:42"
+          },
+          {
+            "id": 37,
+            "privacy_id": 1,
+            "org_id": null,
+            "action": "update_global",
+            "data_item": "整改测试数据项",
+            "old_values": {
+              "data_item": "整改测试数据项",
+              "grade": "5",
+              "confidentiality": "5",
+              "integrity": "5",
+              "availability": "5",
+              "compliance": "5"
+            },
+            "new_values": {
+              "data_item": "整改测试数据项",
+              "grade": "2",
+              "confidentiality": "2",
+              "integrity": "2",
+              "availability": "2",
+              "compliance": "2"
+            },
+            "batch_id": "",
+            "source": "manual",
+            "created_at": "2026-06-02 09:18:42"
+          },
+          {
+            "id": 36,
+            "privacy_id": 10,
+            "org_id": 2,
+            "action": "rectification_confirm",
+            "data_item": "整改测试数据项",
+            "old_values": {
+              "grade": "3",
+              "confidentiality": "3",
+              "integrity": "3",
+              "availability": "3",
+              "compliance": "3"
+            },
+            "new_values": {
+              "grade": "5",
+              "confidentiality": "5",
+              "integrity": "5",
+              "availability": "5",
+              "compliance": "5"
+            },
+            "batch_id": "",
+            "source": "rectification",
+            "created_at": "2026-06-02 09:18:42"
+          },
+          {
+            "id": 35,
+            "privacy_id": 1,
+            "org_id": null,
+            "action": "update_global",
+            "data_item": "整改测试数据项",
+            "old_values": {
+              "data_item": "整改测试数据项",
+              "grade": "3",
+              "confidentiality": "3",
+              "integrity": "3",
+              "availability": "3",
+              "compliance": "3"
+            },
+            "new_values": {
+              "data_item": "整改测试数据项",
+              "grade": "5",
+              "confidentiality": "5",
+              "integrity": "5",
+              "availability": "5",
+              "compliance": "5"
+            },
+            "batch_id": "",
+            "source": "manual",
+            "created_at": "2026-06-02 09:18:42"
+          },
+          {
+            "id": 34,
+            "privacy_id": 10,
+            "org_id": 2,
+            "action": "approve_new",
+            "data_item": "整改测试数据项",
+            "old_values": {},
+            "new_values": {
+              "data_item": "整改测试数据项",
+              "grade": "3",
+              "confidentiality": "3",
+              "integrity": "3",
+              "availability": "3",
+              "compliance": "3"
+            },
+            "batch_id": "f4027346-887e-4734-a8a3-a1d2fcdf52fd",
+            "source": "review",
+            "created_at": "2026-06-02 09:18:42"
+          },
+          {
+            "id": 33,
+            "privacy_id": null,
+            "org_id": 2,
+            "action": "gui_create",
+            "data_item": "整改测试数据项",
+            "old_values": {},
+            "new_values": {
+              "data_item": "整改测试数据项",
+              "grade": "3",
+              "confidentiality": "3",
+              "integrity": "3",
+              "availability": "3",
+              "compliance": "3"
+            },
+            "batch_id": "f4027346-887e-4734-a8a3-a1d2fcdf52fd",
+            "source": "gui",
+            "created_at": "2026-06-02 09:18:42"
+          },
+          {
+            "id": 32,
+            "privacy_id": 1,
+            "org_id": null,
+            "action": "update_global",
+            "data_item": "整改测试数据项",
+            "old_values": {
+              "data_item": "测试数据",
+              "grade": "4",
+              "confidentiality": "4",
+              "integrity": "3",
+              "availability": "3",
+              "compliance": "4"
+            },
+            "new_values": {
+              "data_item": "整改测试数据项",
+              "grade": "3",
+              "confidentiality": "3",
+              "integrity": "3",
+              "availability": "3",
+              "compliance": "3"
+            },
+            "batch_id": "",
+            "source": "manual",
+            "created_at": "2026-06-02 09:18:42"
+          },
+          {
+            "id": 31,
+            "privacy_id": 9,
+            "org_id": 2,
+            "action": "approve_new",
+            "data_item": "批量测试0",
+            "old_values": {},
+            "new_values": {
+              "data_item": "批量测试0",
+              "grade": "3",
+              "confidentiality": "3",
+              "integrity": "3",
+              "availability": "3",
+              "compliance": "3"
+            },
+            "batch_id": "260789db-01c5-471c-bcf9-85a417596c94",
+            "source": "review",
+            "created_at": "2026-06-02 09:18:42"
+          },
+          {
+            "id": 30,
+            "privacy_id": 8,
+            "org_id": 2,
+            "action": "approve_new",
+            "data_item": "批量测试1",
+            "old_values": {},
+            "new_values": {
+              "data_item": "批量测试1",
+              "grade": "3",
+              "confidentiality": "3",
+              "integrity": "3",
+              "availability": "3",
+              "compliance": "3"
+            },
+            "batch_id": "c777c57b-5bd2-4633-92ff-360a26f5f1b8",
+            "source": "review",
+            "created_at": "2026-06-02 09:18:42"
+          },
+          {
+            "id": 29,
+            "privacy_id": 7,
+            "org_id": 2,
+            "action": "approve_new",
+            "data_item": "批量测试2",
+            "old_values": {},
+            "new_values": {
+              "data_item": "批量测试2",
+              "grade": "3",
+              "confidentiality": "3",
+              "integrity": "3",
+              "availability": "3",
+              "compliance": "3"
+            },
+            "batch_id": "59c2d96d-0cf5-40ac-bab1-2763c86817af",
+            "source": "review",
+            "created_at": "2026-06-02 09:18:42"
+          },
+          {
+            "id": 28,
+            "privacy_id": null,
+            "org_id": 2,
+            "action": "gui_create",
+            "data_item": "批量测试2",
+            "old_values": {},
+            "new_values": {
+              "data_item": "批量测试2",
+              "grade": "3",
+              "confidentiality": "3",
+              "integrity": "3",
+              "availability": "3",
+              "compliance": "3"
+            },
+            "batch_id": "59c2d96d-0cf5-40ac-bab1-2763c86817af",
+            "source": "gui",
+            "created_at": "2026-06-02 09:18:42"
+          },
+          {
+            "id": 27,
+            "privacy_id": null,
+            "org_id": 2,
+            "action": "gui_create",
+            "data_item": "批量测试1",
+            "old_values": {},
+            "new_values": {
+              "data_item": "批量测试1",
+              "grade": "3",
+              "confidentiality": "3",
+              "integrity": "3",
+              "availability": "3",
+              "compliance": "3"
+            },
+            "batch_id": "c777c57b-5bd2-4633-92ff-360a26f5f1b8",
+            "source": "gui",
+            "created_at": "2026-06-02 09:18:42"
+          },
+          {
+            "id": 26,
+            "privacy_id": null,
+            "org_id": 2,
+            "action": "gui_create",
+            "data_item": "批量测试0",
+            "old_values": {},
+            "new_values": {
+              "data_item": "批量测试0",
+              "grade": "3",
+              "confidentiality": "3",
+              "integrity": "3",
+              "availability": "3",
+              "compliance": "3"
+            },
+            "batch_id": "260789db-01c5-471c-bcf9-85a417596c94",
+            "source": "gui",
+            "created_at": "2026-06-02 09:18:42"
+          },
+          {
+            "id": 25,
+            "privacy_id": null,
+            "org_id": 2,
+            "action": "reject",
+            "data_item": "驳回测试",
+            "old_values": {
+              "data_item": "驳回测试",
+              "grade": "3",
+              "confidentiality": "3",
+              "integrity": "3",
+              "availability": "3",
+              "compliance": "3"
+            },
+            "new_values": {},
+            "batch_id": "877a411a-3595-4055-9868-04f6c9f8c504",
+            "source": "review",
+            "created_at": "2026-06-02 09:18:42"
+          },
+          {
+            "id": 24,
+            "privacy_id": null,
+            "org_id": 2,
+            "action": "gui_create",
+            "data_item": "驳回测试",
+            "old_values": {},
+            "new_values": {
+              "data_item": "驳回测试",
+              "grade": "3",
+              "confidentiality": "3",
+              "integrity": "3",
+              "availability": "3",
+              "compliance": "3"
+            },
+            "batch_id": "877a411a-3595-4055-9868-04f6c9f8c504",
+            "source": "gui",
+            "created_at": "2026-06-02 09:18:42"
+          },
+          {
+            "id": 23,
+            "privacy_id": 6,
+            "org_id": 8,
+            "action": "approve_new",
+            "data_item": "组织数据3",
+            "old_values": {},
+            "new_values": {
+              "data_item": "组织数据3",
+              "grade": "2",
+              "confidentiality": "2",
+              "integrity": "2",
+              "availability": "2",
+              "compliance": "2"
+            },
+            "batch_id": "121fe636-dfe2-44ef-a092-4e02b2572646",
+            "source": "review",
+            "created_at": "2026-06-02 09:18:42"
+          },
+          {
+            "id": 22,
+            "privacy_id": null,
+            "org_id": null,
+            "action": "import",
+            "data_item": "[batch] 3 items",
+            "old_values": {},
+            "new_values": {
+              "total": 3,
+              "new": 3,
+              "conflict": 0,
+              "global_conflict": 0,
+              "skipped": 0,
+              "duplicate": 0,
+              "orgs_created": 5
+            },
+            "batch_id": "121fe636-dfe2-44ef-a092-4e02b2572646",
+            "source": "excel_import",
+            "created_at": "2026-06-02 09:18:42"
+          },
+          {
+            "id": 21,
+            "privacy_id": null,
+            "org_id": 2,
+            "action": "import",
+            "data_item": "[batch] 3 items",
+            "old_values": {},
+            "new_values": {
+              "total": 3,
+              "new": 2,
+              "conflict": 0,
+              "global_conflict": 0,
+              "skipped": 0,
+              "duplicate": 1,
+              "orgs_created": 0
+            },
+            "batch_id": "3cca7da8-3be1-488e-8d56-71edae0f7203",
+            "source": "excel_import",
+            "created_at": "2026-06-02 09:18:42"
+          },
+          {
+            "id": 20,
+            "privacy_id": null,
+            "org_id": 2,
+            "action": "import",
+            "data_item": "[batch] 3 items",
+            "old_values": {},
+            "new_values": {
+              "total": 3,
+              "new": 0,
+              "conflict": 0,
+              "global_conflict": 0,
+              "skipped": 3,
+              "duplicate": 0,
+              "orgs_created": 0
+            },
+            "batch_id": "54fa3963-9e7c-4b83-9b63-00c8c9c434c8",
+            "source": "excel_import",
+            "created_at": "2026-06-02 09:18:42"
+          },
+          {
+            "id": 19,
+            "privacy_id": null,
+            "org_id": 2,
+            "action": "import",
+            "data_item": "[batch] 3 items",
+            "old_values": {},
+            "new_values": {
+              "total": 3,
+              "new": 3,
+              "conflict": 0,
+              "global_conflict": 0,
+              "skipped": 0,
+              "duplicate": 0,
+              "orgs_created": 0
+            },
+            "batch_id": "33a6a2ca-62ed-4302-94dd-b7648ae978eb",
+            "source": "excel_import",
+            "created_at": "2026-06-02 09:18:42"
+          },
+          {
+            "id": 18,
+            "privacy_id": 4,
+            "org_id": 2,
+            "action": "gui_delete",
+            "data_item": "删除测试数据2",
+            "old_values": {
+              "data_item": "删除测试数据2",
+              "grade": "3",
+              "confidentiality": "3",
+              "integrity": "3",
+              "availability": "3",
+              "compliance": "3"
+            },
+            "new_values": {},
+            "batch_id": "00146bda-8b0f-4a7a-8fa4-e51c7ff0015d",
+            "source": "gui",
+            "created_at": "2026-06-02 09:18:42"
+          },
+          {
+            "id": 17,
+            "privacy_id": 5,
+            "org_id": 2,
+            "action": "approve_new",
+            "data_item": "删除测试数据1",
+            "old_values": {},
+            "new_values": {
+              "data_item": "删除测试数据1",
+              "grade": "2",
+              "confidentiality": "3",
+              "integrity": "4",
+              "availability": "5",
+              "compliance": "3"
+            },
+            "batch_id": "44ef8b23-e694-49e5-b74c-527ab1ddf88d",
+            "source": "review",
+            "created_at": "2026-06-02 09:18:42"
+          },
+          {
+            "id": 16,
+            "privacy_id": 4,
+            "org_id": 2,
+            "action": "approve_new",
+            "data_item": "删除测试数据2",
+            "old_values": {},
+            "new_values": {
+              "data_item": "删除测试数据2",
+              "grade": "3",
+              "confidentiality": "3",
+              "integrity": "3",
+              "availability": "3",
+              "compliance": "3"
+            },
+            "batch_id": "02a7432b-a317-413b-8abb-41c0f6bce684",
+            "source": "review",
+            "created_at": "2026-06-02 09:18:42"
+          },
+          {
+            "id": 15,
+            "privacy_id": null,
+            "org_id": 2,
+            "action": "gui_create",
+            "data_item": "删除测试数据2",
+            "old_values": {},
+            "new_values": {
+              "data_item": "删除测试数据2",
+              "grade": "3",
+              "confidentiality": "3",
+              "integrity": "3",
+              "availability": "3",
+              "compliance": "3"
+            },
+            "batch_id": "02a7432b-a317-413b-8abb-41c0f6bce684",
+            "source": "gui",
+            "created_at": "2026-06-02 09:18:42"
+          },
+          {
+            "id": 14,
+            "privacy_id": null,
+            "org_id": 2,
+            "action": "gui_create",
+            "data_item": "删除测试数据1",
+            "old_values": {},
+            "new_values": {
+              "data_item": "删除测试数据1",
+              "grade": "2",
+              "confidentiality": "3",
+              "integrity": "4",
+              "availability": "5",
+              "compliance": "3"
+            },
+            "batch_id": "44ef8b23-e694-49e5-b74c-527ab1ddf88d",
+            "source": "gui",
+            "created_at": "2026-06-02 09:18:42"
+          },
+          {
+            "id": 13,
+            "privacy_id": 3,
+            "org_id": 2,
+            "action": "gui_update",
+            "data_item": "更新测试数据",
+            "old_values": {
+              "data_item": "更新测试数据",
+              "grade": "2",
+              "confidentiality": "3",
+              "integrity": "4",
+              "availability": "5",
+              "compliance": "3"
+            },
+            "new_values": {
+              "data_item": "更新测试数据",
+              "grade": "3",
+              "confidentiality": "3",
+              "integrity": "3",
+              "availability": "3",
+              "compliance": "3"
+            },
+            "batch_id": "6f6ea2a7-1545-4eb8-8763-4a8fc9514cc0",
+            "source": "gui",
+            "created_at": "2026-06-02 09:18:42"
+          },
+          {
+            "id": 12,
+            "privacy_id": 3,
+            "org_id": 2,
+            "action": "approve_new",
+            "data_item": "更新测试数据",
+            "old_values": {},
+            "new_values": {
+              "data_item": "更新测试数据",
+              "grade": "2",
+              "confidentiality": "3",
+              "integrity": "4",
+              "availability": "5",
+              "compliance": "3"
+            },
+            "batch_id": "0ff245e2-9918-4c26-9924-bb4dda1c5a18",
+            "source": "review",
+            "created_at": "2026-06-02 09:18:42"
+          },
+          {
+            "id": 11,
+            "privacy_id": null,
+            "org_id": 2,
+            "action": "gui_create",
+            "data_item": "更新测试数据",
+            "old_values": {},
+            "new_values": {
+              "data_item": "更新测试数据",
+              "grade": "2",
+              "confidentiality": "3",
+              "integrity": "4",
+              "availability": "5",
+              "compliance": "3"
+            },
+            "batch_id": "0ff245e2-9918-4c26-9924-bb4dda1c5a18",
+            "source": "gui",
+            "created_at": "2026-06-02 09:18:42"
+          },
+          {
+            "id": 10,
+            "privacy_id": 2,
+            "org_id": 2,
+            "action": "approve_new",
+            "data_item": "员工工号",
+            "old_values": {},
+            "new_values": {
+              "data_item": "员工工号",
+              "grade": "2",
+              "confidentiality": "3",
+              "integrity": "4",
+              "availability": "5",
+              "compliance": "3"
+            },
+            "batch_id": "ca4a6815-9c86-49ff-8c2b-78468059fb4a",
+            "source": "review",
+            "created_at": "2026-06-02 09:18:42"
+          },
+          {
+            "id": 9,
+            "privacy_id": null,
+            "org_id": 2,
+            "action": "gui_create",
+            "data_item": "员工工号",
+            "old_values": {},
+            "new_values": {
+              "data_item": "员工工号",
+              "grade": "2",
+              "confidentiality": "3",
+              "integrity": "4",
+              "availability": "5",
+              "compliance": "3"
+            },
+            "batch_id": "ca4a6815-9c86-49ff-8c2b-78468059fb4a",
+            "source": "gui",
+            "created_at": "2026-06-02 09:18:42"
+          },
+          {
+            "id": 8,
+            "privacy_id": 5,
+            "org_id": null,
+            "action": "delete_global",
+            "data_item": "临时数据",
+            "old_values": {
+              "data_item": "临时数据",
+              "grade": "3",
+              "confidentiality": "3",
+              "integrity": "3",
+              "availability": "3",
+              "compliance": "3"
+            },
+            "new_values": {},
+            "batch_id": "",
+            "source": "manual",
+            "created_at": "2026-06-02 09:18:42"
+          },
+          {
+            "id": 7,
+            "privacy_id": 5,
+            "org_id": null,
+            "action": "create_global",
+            "data_item": "临时数据",
+            "old_values": {},
+            "new_values": {
+              "data_item": "临时数据",
+              "grade": "3",
+              "confidentiality": "3",
+              "integrity": "3",
+              "availability": "3",
+              "compliance": "3"
+            },
+            "batch_id": "",
+            "source": "manual",
+            "created_at": "2026-06-02 09:18:42"
+          },
+          {
+            "id": 6,
+            "privacy_id": 1,
+            "org_id": null,
+            "action": "update_global",
+            "data_item": "测试数据",
+            "old_values": {
+              "data_item": "测试数据",
+              "grade": "3",
+              "confidentiality": "3",
+              "integrity": "3",
+              "availability": "3",
+              "compliance": "3"
+            },
+            "new_values": {
+              "data_item": "测试数据",
+              "grade": "4",
+              "confidentiality": "4",
+              "integrity": "3",
+              "availability": "3",
+              "compliance": "4"
+            },
+            "batch_id": "",
+            "source": "manual",
+            "created_at": "2026-06-02 09:18:42"
+          },
+          {
+            "id": 5,
+            "privacy_id": 4,
+            "org_id": null,
+            "action": "create_global",
+            "data_item": "测试5",
+            "old_values": {},
+            "new_values": {
+              "data_item": "测试5",
+              "grade": "5",
+              "confidentiality": "5",
+              "integrity": "5",
+              "availability": "5",
+              "compliance": "5"
+            },
+            "batch_id": "",
+            "source": "manual",
+            "created_at": "2026-06-02 09:18:42"
+          },
+          {
+            "id": 4,
+            "privacy_id": 3,
+            "org_id": null,
+            "action": "create_global",
+            "data_item": "测试1",
+            "old_values": {},
+            "new_values": {
+              "data_item": "测试1",
+              "grade": "1",
+              "confidentiality": "1",
+              "integrity": "1",
+              "availability": "1",
+              "compliance": "1"
+            },
+            "batch_id": "",
+            "source": "manual",
+            "created_at": "2026-06-02 09:18:42"
+          },
+          {
+            "id": 3,
+            "privacy_id": 2,
+            "org_id": null,
+            "action": "create_global",
+            "data_item": "用户姓名",
+            "old_values": {},
+            "new_values": {
+              "data_item": "用户姓名",
+              "grade": "3",
+              "confidentiality": "4",
+              "integrity": "3",
+              "availability": "3",
+              "compliance": "4"
+            },
+            "batch_id": "",
+            "source": "manual",
+            "created_at": "2026-06-02 09:18:42"
+          },
+          {
+            "id": 2,
+            "privacy_id": 1,
+            "org_id": 3,
+            "action": "approve_new",
+            "data_item": "测试数据",
+            "old_values": {},
+            "new_values": {
+              "data_item": "测试数据",
+              "grade": "3",
+              "confidentiality": "3",
+              "integrity": "3",
+              "availability": "3",
+              "compliance": "3"
+            },
+            "batch_id": "5ea79ded-455b-4ffa-ab83-1e3f686680c3",
+            "source": "review",
+            "created_at": "2026-06-02 09:18:42"
+          },
+          {
+            "id": 1,
+            "privacy_id": null,
+            "org_id": 3,
+            "action": "gui_create",
+            "data_item": "测试数据",
+            "old_values": {},
+            "new_values": {
+              "data_item": "测试数据",
+              "grade": "3",
+              "confidentiality": "3",
+              "integrity": "3",
+              "availability": "3",
+              "compliance": "3"
+            },
+            "batch_id": "5ea79ded-455b-4ffa-ab83-1e3f686680c3",
+            "source": "gui",
+            "created_at": "2026-06-02 09:18:42"
+          }
+        ],
+        "total": 42,
+        "page": 1,
+        "limit": 50,
+        "pages": 1
+      }
+    },
+    "error": null
+  },
+  {
+    "testCaseId": "DST-001",
+    "testCaseName": "下发总表数据到组织",
+    "module": "数据下发",
+    "testType": "functional",
+    "priority": "high",
+    "strategy": "功能测试 - 验证功能按需求正确实现",
+    "status": "PASS",
+    "duration": 7,
+    "expected": {
+      "status": 200,
+      "body": {
+        "distributed": "positive_integer"
+      }
+    },
+    "actual": {
+      "status": 200,
+      "body": {
+        "success": true,
+        "distributed": 0,
+        "skipped": 1
+      }
+    },
+    "error": null
+  },
+  {
+    "testCaseId": "DST-002",
+    "testCaseName": "下发到非叶子组织",
+    "module": "数据下发",
+    "testType": "exception",
+    "priority": "high",
+    "strategy": "异常测试 - 验证异常输入处理",
+    "status": "PASS",
+    "duration": 5,
+    "expected": {
+      "status": 200,
+      "body": {
+        "skipped": "positive_integer"
+      }
+    },
+    "actual": {
+      "status": 200,
+      "body": {
+        "success": true,
+        "distributed": 0,
+        "skipped": 1
+      }
+    },
+    "error": null
+  },
+  {
+    "testCaseId": "DST-003",
+    "testCaseName": "下发已存在的数据",
+    "module": "数据下发",
+    "testType": "exception",
+    "priority": "medium",
+    "strategy": "异常测试 - 验证异常输入处理",
+    "status": "PASS",
+    "duration": 12,
+    "expected": {
+      "status": 200,
+      "body": {
+        "skipped": "positive_integer"
+      }
+    },
+    "actual": {
+      "status": 200,
+      "body": {
+        "success": true,
+        "distributed": 0,
+        "skipped": 1
+      }
+    },
+    "error": null
+  },
+  {
+    "testCaseId": "CNF-001",
+    "testCaseName": "执行冲突检查",
+    "module": "冲突检查",
+    "testType": "functional",
+    "priority": "high",
+    "strategy": "功能测试 - 验证功能按需求正确实现",
+    "status": "PASS",
+    "duration": 4,
+    "expected": {
+      "status": 200,
+      "body": {
+        "conflicts": "positive_integer",
+        "details": "array"
+      }
+    },
+    "actual": {
+      "status": 200,
+      "body": {
+        "conflicts": 1,
+        "applied": 0,
+        "details": [
+          {
+            "privacy_id": 10,
+            "org_id": 2,
+            "org_name": "技术部",
+            "data_item": "整改测试数据项",
+            "diffs": [
+              {
+                "field": "综合等级",
+                "org_val": "2",
+                "global_val": "5"
+              },
+              {
+                "field": "机密性",
+                "org_val": "2",
+                "global_val": "5"
+              },
+              {
+                "field": "完整性",
+                "org_val": "2",
+                "global_val": "5"
+              },
+              {
+                "field": "可用性",
+                "org_val": "2",
+                "global_val": "5"
+              },
+              {
+                "field": "合规性",
+                "org_val": "2",
+                "global_val": "5"
+              }
+            ],
+            "org_values": {
+              "grade": "2",
+              "confidentiality": "2",
+              "integrity": "2",
+              "availability": "2",
+              "compliance": "2"
+            },
+            "global_values": {
+              "grade": "5",
+              "confidentiality": "5",
+              "integrity": "5",
+              "availability": "5",
+              "compliance": "5"
+            }
+          }
+        ]
+      }
+    },
+    "error": null
+  },
+  {
+    "testCaseId": "CNF-002",
+    "testCaseName": "应用冲突修复",
+    "module": "冲突检查",
+    "testType": "functional",
+    "priority": "high",
+    "strategy": "功能测试 - 验证功能按需求正确实现",
+    "status": "PASS",
+    "duration": 5,
+    "expected": {
+      "status": 200,
+      "body": {
+        "applied": "positive_integer"
+      }
+    },
+    "actual": {
+      "status": 200,
+      "body": {
+        "conflicts": 1,
+        "applied": 1,
+        "details": [
+          {
+            "privacy_id": 10,
+            "org_id": 2,
+            "org_name": "技术部",
+            "data_item": "整改测试数据项",
+            "diffs": [
+              {
+                "field": "综合等级",
+                "org_val": "2",
+                "global_val": "5"
+              },
+              {
+                "field": "机密性",
+                "org_val": "2",
+                "global_val": "5"
+              },
+              {
+                "field": "完整性",
+                "org_val": "2",
+                "global_val": "5"
+              },
+              {
+                "field": "可用性",
+                "org_val": "2",
+                "global_val": "5"
+              },
+              {
+                "field": "合规性",
+                "org_val": "2",
+                "global_val": "5"
+              }
+            ],
+            "org_values": {
+              "grade": "2",
+              "confidentiality": "2",
+              "integrity": "2",
+              "availability": "2",
+              "compliance": "2"
+            },
+            "global_values": {
+              "grade": "5",
+              "confidentiality": "5",
+              "integrity": "5",
+              "availability": "5",
+              "compliance": "5"
+            }
+          }
+        ]
+      }
+    },
+    "error": null
+  },
+  {
+    "testCaseId": "CNF-003",
+    "testCaseName": "无冲突时检查",
+    "module": "冲突检查",
+    "testType": "functional",
+    "priority": "medium",
+    "strategy": "功能测试 - 验证功能按需求正确实现",
+    "status": "PASS",
+    "duration": 5,
+    "expected": {
+      "status": 200,
+      "body": {
+        "conflicts": 0
+      }
+    },
+    "actual": {
+      "status": 200,
+      "body": {
+        "conflicts": 0,
+        "applied": 0,
+        "details": []
+      }
+    },
+    "error": null
+  },
+  {
+    "testCaseId": "SUM-001",
+    "testCaseName": "查询汇总统计",
+    "module": "统计汇总",
+    "testType": "functional",
+    "priority": "high",
+    "strategy": "功能测试 - 验证功能按需求正确实现",
+    "status": "PASS",
+    "duration": 5,
+    "expected": {
+      "status": 200,
+      "body": {
+        "global_count": "non_negative_integer",
+        "org_data_count": "non_negative_integer",
+        "org_count": "non_negative_integer"
+      }
+    },
+    "actual": {
+      "status": 200,
+      "body": {
+        "global_count": 12,
+        "org_data_count": 9,
+        "org_count": 7,
+        "leaf_org_count": 4,
+        "total_pending": 9,
+        "total_approved": 10,
+        "total_conflicts_resolved": 4,
+        "rectification_pending": 0,
+        "rectification_confirmed": 2,
+        "org_details": [
+          {
+            "org_id": 2,
+            "org_name": "技术部",
+            "level": 2,
+            "data_count": 8
+          },
+          {
+            "org_id": 8,
+            "org_name": "研发部",
+            "level": 2,
+            "data_count": 1
+          }
+        ]
+      }
+    },
+    "error": null
+  },
+  {
+    "testCaseId": "SUM-002",
+    "testCaseName": "统计整改任务",
+    "module": "统计汇总",
+    "testType": "functional",
+    "priority": "medium",
+    "strategy": "功能测试 - 验证功能按需求正确实现",
+    "status": "PASS",
+    "duration": 3,
+    "expected": {
+      "status": 200,
+      "body": {
+        "rectification_pending": "non_negative_integer",
+        "rectification_confirmed": "non_negative_integer"
+      }
+    },
+    "actual": {
+      "status": 200,
+      "body": {
+        "global_count": 12,
+        "org_data_count": 9,
+        "org_count": 7,
+        "leaf_org_count": 4,
+        "total_pending": 9,
+        "total_approved": 10,
+        "total_conflicts_resolved": 4,
+        "rectification_pending": 0,
+        "rectification_confirmed": 2,
+        "org_details": [
+          {
+            "org_id": 2,
+            "org_name": "技术部",
+            "level": 2,
+            "data_count": 8
+          },
+          {
+            "org_id": 8,
+            "org_name": "研发部",
+            "level": 2,
+            "data_count": 1
+          }
+        ]
+      }
+    },
+    "error": null
+  }
+]

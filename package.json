@@ -1,0 +1,23 @@
+{
+  "name": "privacy-system",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "concurrently \"npm run dev:server\" \"npm run dev:client\"",
+    "dev:server": "node server/index.js",
+    "dev:client": "cd client && npx vite --port 5173",
+    "build": "cd client && npx vite build --outDir ../server/public --emptyOutDir",
+    "start": "node server/index.js",
+    "test": "node tests/runner.cjs"
+  },
+  "devDependencies": {
+    "concurrently": "^9.0.0"
+  },
+  "dependencies": {
+    "cors": "^2.8.6",
+    "express": "^5.2.1",
+    "multer": "^2.1.1",
+    "sql.js": "^1.14.1",
+    "xlsx": "^0.18.5"
+  }
+}
