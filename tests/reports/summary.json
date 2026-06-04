@@ -1,5 +1,41 @@
 [
   {
+    "timestamp": "2026-06-04T03:54:20.916Z",
+    "summary": {
+      "total": 57,
+      "passed": 57,
+      "failed": 0,
+      "skipped": 0,
+      "passRate": "100.00",
+      "totalDuration": 873
+    },
+    "runDir": "run-2026-06-04T03-54-20-917Z"
+  },
+  {
+    "timestamp": "2026-06-04T03:47:50.915Z",
+    "summary": {
+      "total": 57,
+      "passed": 57,
+      "failed": 0,
+      "skipped": 0,
+      "passRate": "100.00",
+      "totalDuration": 870
+    },
+    "runDir": "run-2026-06-04T03-47-50-915Z"
+  },
+  {
+    "timestamp": "2026-06-04T03:45:02.759Z",
+    "summary": {
+      "total": 57,
+      "passed": 57,
+      "failed": 0,
+      "skipped": 0,
+      "passRate": "100.00",
+      "totalDuration": 874
+    },
+    "runDir": "run-2026-06-04T03-45-02-759Z"
+  },
+  {
     "timestamp": "2026-06-03T01:29:07.680Z",
     "summary": {
       "total": 57,

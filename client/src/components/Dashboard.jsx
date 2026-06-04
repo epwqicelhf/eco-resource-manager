@@ -1,14 +1,35 @@
 import { useState, useEffect } from 'react'
-import { fetchSummary } from '../api'
+import { fetchSummary, systemReset } from '../api'
 
 function Dashboard() {
   const [data, setData] = useState(null)
   const [loading, setLoading] = useState(true)
+  const [resetting, setResetting] = useState(false)
+  const [resetMessage, setResetMessage] = useState(null)
 
   useEffect(() => {
     setLoading(true)
     fetchSummary().then(d => { setData(d); setLoading(false) }).catch(e => { console.error(e); setLoading(false) })
   }, [])
+
+  const handleReset = async () => {
+    if (!confirm('确认要恢复出厂设置吗？此操作将清空所有数据，包括组织、总表、组织数据、审计日志等。此操作不可撤销！')) return
+    if (!confirm('再次确认：所有数据将被永久删除，确定继续？')) return
+    setResetting(true)
+    setResetMessage(null)
+    try {
+      const res = await systemReset()
+      if (res.error) {
+        setResetMessage({ type: 'error', text: res.error })
+      } else {
+        setResetMessage({ type: 'success', text: res.message || '系统已恢复出厂设置' })
+        fetchSummary().then(d => setData(d))
+      }
+    } catch (e) {
+      setResetMessage({ type: 'error', text: '恢复出厂设置失败: ' + e.message })
+    }
+    setResetting(false)
+  }
 
   if (loading) return <div className="loading">加载中...</div>
   if (!data) return <div className="empty-state"><p>无法加载汇总数据</p></div>
@@ -109,6 +130,25 @@ function Dashboard() {
           </div>
         </div>
       )}
+
+      <div className="card" style={{ borderColor: 'rgba(255, 82, 82, 0.3)' }}>
+        <div className="card-title" style={{ color: 'var(--danger)' }}>系统维护</div>
+        <p style={{ color: 'var(--text-muted)', marginBottom: '16px', fontSize: '0.9rem' }}>
+          恢复出厂设置将清空系统中所有数据，包括：组织结构、总表数据、组织隐私数据、待审核数据、整改任务、审计日志。此操作不可撤销。
+        </p>
+        {resetMessage && (
+          <div className={`alert ${resetMessage.type === 'error' ? 'alert-error' : 'alert-success'}`} style={{ marginBottom: '12px' }}>
+            {resetMessage.text}
+          </div>
+        )}
+        <button
+          className="btn btn-danger"
+          onClick={handleReset}
+          disabled={resetting}
+        >
+          {resetting ? '正在恢复...' : '恢复出厂设置'}
+        </button>
+      </div>
     </div>
   )
 }

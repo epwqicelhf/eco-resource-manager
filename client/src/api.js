@@ -247,3 +247,8 @@ export async function conflictCheckGlobal(apply = false) {
   });
   return res.json();
 }
+
+export async function systemReset() {
+  const res = await fetch(`${API_BASE}/system/reset`, { method: 'POST' });
+  return res.json();
+}

@@ -54,7 +54,7 @@ export async function initDb() {
       saveDb()
       console.log(`[DB] Migrations complete. Database now at version ${CURRENT_VERSION}`)
     } catch (err) {
-      db.run('ROLLBACK')
+      try { db.run('ROLLBACK'); } catch (e) {}
       console.error('[DB] Migration failed, rolled back:', err.message)
       throw err
     }

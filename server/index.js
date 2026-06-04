@@ -522,7 +522,7 @@ app.post('/api/privacy-global/:id/distribute', (req, res) => {
 
     res.json({ success: true, distributed, skipped });
   } catch (err) {
-    db.run('ROLLBACK');
+    try { db.run('ROLLBACK'); } catch (e) {}
     res.status(500).json({ error: err.message });
   }
 });
@@ -860,7 +860,7 @@ app.post('/api/upload/import', upload.single('file'), (req, res) => {
         total: records.length
       });
     } catch (err) {
-      db.run('ROLLBACK');
+      try { db.run('ROLLBACK'); } catch (e) {}
       throw err;
     }
   } catch (err) {
@@ -1133,7 +1133,7 @@ app.post('/api/pending/approve-by-type', (req, res) => {
     saveDb();
     res.json({ success: true, processed: items.length });
   } catch (err) {
-    db.run('ROLLBACK');
+    try { db.run('ROLLBACK'); } catch (e) {}
     res.status(500).json({ error: err.message });
   }
 });
@@ -1727,6 +1727,18 @@ app.post('/api/rectification-tasks/:id/dismiss', (req, res) => {
 
   runSql("UPDATE rectification_tasks SET status = 'dismissed', confirmed_at = CURRENT_TIMESTAMP WHERE id = ?", [numId]);
   res.json({ success: true });
+});
+
+app.post('/api/system/reset', (req, res) => {
+  const db = getDb();
+  db.run('DELETE FROM audit_log');
+  db.run('DELETE FROM rectification_tasks');
+  db.run('DELETE FROM pending_imports');
+  db.run('DELETE FROM privacy');
+  db.run('DELETE FROM privacy_global');
+  db.run('DELETE FROM organizations');
+  saveDb();
+  res.json({ success: true, message: '系统已恢复出厂设置，所有数据已清空' });
 });
 
 app.get('/{*splat}', (req, res) => {

@@ -1777,6 +1777,13 @@ async function runAllTests() {
     console.log('\n✓ 测试服务器已停止');
   }
 
+  // 清理测试数据，恢复出厂设置
+  console.log('\n正在清理测试数据...');
+  if (fs.existsSync(DB_PATH)) {
+    fs.unlinkSync(DB_PATH);
+    console.log('✓ 已删除测试数据库，下次启动将创建全新的空数据库');
+  }
+
   if (report.summary.failed > 0) {
     console.log('\n失败的测试用例:');
     report.results.filter(r => r.status === 'FAIL').forEach(r => {
@@ -1785,7 +1792,7 @@ async function runAllTests() {
     });
     process.exit(1);
   } else {
-    console.log('\n✓ 所有测试通过！');
+    console.log('\n✓ 所有测试通过！测试数据已清理，系统已恢复出厂设置。');
     process.exit(0);
   }
 }
